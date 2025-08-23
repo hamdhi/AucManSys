@@ -1,0 +1,97 @@
+[
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.LoginController",
+    "Method": "Login",
+    "RelativePath": "api/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "AuctionManagementSystem.Models.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
+    "Method": "AddAuthUsers",
+    "RelativePath": "api/UserAuth/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addUserAuthDto",
+        "Type": "AuctionManagementSystem.Models.AddUserAuthDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/UserAuth/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/UserAuth/getAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
+    "Method": "GetUserById",
+    "RelativePath": "api/UserAuth/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
+    "Method": "UpdateUser",
+    "RelativePath": "api/UserAuth/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateDto",
+        "Type": "AuctionManagementSystem.Models.AddUserAuthDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
