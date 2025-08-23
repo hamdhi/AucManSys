@@ -25,6 +25,116 @@
             window.location.href = "login.html";
         }
     </script>
+
+
+
+
+    <h3>Add New Product</h3>
+    <form id="addForm">
+        <input type="number" id="catId" placeholder="Category ID" required />
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="text" id="name" placeholder="Product Name" required />
+        <input type="text" id="description" placeholder="Description" required />
+        <input type="number" id="minBid" placeholder="Min Bid" required />
+        <input type="number" id="status" placeholder="Status (1/0)" required />
+        <input type="text" id="photo" placeholder="Photo URL" />
+        <input type="date" id="endDate" placeholder="End Date" required />
+        <button type="submit">Add Product</button>
+    </form>
+
+
+
+    <h1>Products</h1>
+
+    <table id="productsTable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Min Bid Price</th>
+                <th>Status</th>
+                <th>Photo</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Products will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        const tableBody = document.querySelector('#productsTable tbody');
+
+        // Load products
+        async function loadProducts() {
+            const res = await fetch('https://localhost:7212/api/Product/getAll');
+            const products = await res.json();
+            tableBody.innerHTML = '';
+            products.forEach(p => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${p.product_Id}</td>
+                    <td>${p.categoryName}</td>
+                    <td>${p.username}</td>
+                    <td>${p.product_Name}</td>
+                    <td>${p.description}</td>
+                    <td>${p.min_Bid_Price}</td>
+                    <td>${p.status == 1 ? 'Available' : 'Not Available'}</td>
+                    <td>${p.photo}</td>
+                    <td>${new Date(p.start_Date).toLocaleString()}</td>
+                    <td>${new Date(p.end_Date).toLocaleDateString()}</td>
+                    <td>
+                        <button onclick="editProduct(${p.product_Id})">Edit</button>
+                        <button onclick="deleteProduct(${p.product_Id})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Add product
+        document.getElementById('addForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            const dto = {
+                cat_Id: +document.getElementById('catId').value,
+                username: document.getElementById('username').value,
+                product_Name: document.getElementById('name').value,
+                description: document.getElementById('description').value,
+                min_Bid_Price: +document.getElementById('minBid').value,
+                status: +document.getElementById('status').value,
+                photo: document.getElementById('photo').value,
+                end_Date: document.getElementById('endDate').value
+            };
+            await fetch('https://localhost:7212/api/Product/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dto)
+            });
+            loadProducts();
+        });
+
+        // Delete product
+        async function deleteProduct(id) {
+            if (confirm('Delete this product?')) {
+                await fetch(`https://localhost:7212/api/Product/delete/${id}`, { method: 'DELETE' });
+                loadProducts();
+            }
+        }
+
+        // Edit: redirect to update page
+        function editProduct(id) {
+            window.location.href = `updateProduct.html?id=${id}`;
+        }
+
+        window.addEventListener('DOMContentLoaded', loadProducts);
+    </script>
+
+
 </body>
 
 </html>
