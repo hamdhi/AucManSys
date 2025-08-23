@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Login</title>
 </head>
+
 <body>
     <h2>Login Form</h2>
     <form id="loginForm">
-        <input type="text" id="username" placeholder="Username" required /><br/><br/>
-        <input type="password" id="password" placeholder="Password" required /><br/><br/>
+        <input type="text" id="username" placeholder="Username" required /><br /><br />
+        <input type="password" id="password" placeholder="Password" required /><br /><br />
         <button type="submit">Login</button>
     </form>
 
@@ -36,21 +38,24 @@
                 return;
             }
 
-            // Show panel based on role
             switch (data.panel) {
                 case "Admin Panel":
-                    panelDiv.innerHTML = "<h1>Welcome Admin</h1>";
+                    sessionStorage.setItem("userRole", "Admin");
+                    window.location.href = "Admin.html";
                     break;
                 case "Seller Panel":
-                    panelDiv.innerHTML = "<h1>Welcome Seller</h1>";
+                    sessionStorage.setItem("userRole", "Seller");
+                    window.location.href = "Seller.html";
                     break;
                 case "Bidder Panel":
-                    panelDiv.innerHTML = "<h1>Welcome Bidder</h1>";
+                    sessionStorage.setItem("userRole", "Bidder");
+                    window.location.href = "Bidder.html";
                     break;
                 default:
-                    panelDiv.innerHTML = "<p>Unknown role</p>";
+                    alert("Unknown role");
             }
         });
     </script>
 </body>
+
 </html>

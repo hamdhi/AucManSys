@@ -23,12 +23,22 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Add session support
+builder.Services.AddDistributedMemoryCache(); // in-memory session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // session expires after 30 mins
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 
 var app = builder.Build();
 
 // Use CORS
 app.UseCors("AllowFrontend");
+app.UseSession(); // enable session
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
