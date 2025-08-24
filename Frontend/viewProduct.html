@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Product</title>
+    <link rel="stylesheet" href="General.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #bidsList li {
+            margin-bottom: 5px;
+        }
+
+        .bid-user {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .bid-amount {
+            color: green;
+            margin-right: 5px;
+        }
+
+        .bid-time {
+            font-size: 0.9em;
+            color: gray;
+        }
+
+        #addBidSection {
+            margin-top: 20px;
+        }
+
+        #bidAmount {
+            width: 150px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        #confirmBidBtn {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="productName"></h2>
+    <p id="productDescription"></p>
+    <p>Minimum Bid: <span id="minBid"></span></p>
+
+    <h3>Current Bids</h3>
+    <ul id="bidsList"></ul>
+
+    <div id="addBidSection">
+        <input type="number" id="bidAmount" placeholder="Enter your bid" />
+        <button id="confirmBidBtn">Place Bid</button>
+    </div>
+
+    <script>
+        const productId = new URLSearchParams(window.location.search).get('productId');
+
+        async function loadProduct() {
+            const res = await fetch(`https://localhost:7212/api/Product/getById/${productId}`);
+            const product = await res.json();
+
+            document.getElementById("productName").textContent = product.product_Name;
+            document.getElementById("productDescription").textContent = product.description;
+            document.getElementById("minBid").textContent = product.min_Bid_Price;
+
+            loadBids();
+        }
+
+        async function loadBids() {
+            const res = await fetch(`https://localhost:7212/api/Bids/getByProduct/${productId}`);
+            const bids = await res.json();
+            const bidsList = document.getElementById("bidsList");
+            bidsList.innerHTML = '';
+
+            if (bids.length === 0) {
+                bidsList.innerHTML = '<li>No bids yet.</li>';
+                return;
+            }
+
+            bids.forEach(b => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span class="bid-user">${b.username}</span>
+                    <span class="bid-amount">${b.bidAmount}</span> -
+                    <span class="bid-time">${new Date(b.bidTime).toLocaleString()}</span>
+                      <span class="bid-user">${b.productName}</span>
+                `;
+                bidsList.appendChild(li);
+            });
+        }
+
+        // Place a new bid
+        document.getElementById('confirmBidBtn').addEventListener('click', async () => {
+            const bidAmount = parseFloat(document.getElementById('bidAmount').value);
+            if (!bidAmount || bidAmount <= 0) {
+                alert("Enter a valid bid amount");
+                return;
+            }
+
+            // Send to AddBid API
+            const res = await fetch('https://localhost:7212/api/Bids/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ProductId: parseInt(productId), BidAmount: bidAmount })
+            });
+
+            if (res.ok) {
+                alert("Bid placed successfully!");
+                document.getElementById('bidAmount').value = '';
+                loadBids(); // refresh bids list
+            } else {
+                const err = await res.text();
+                alert("Error placing bid: " + err);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', loadProduct);
+    </script>
+</body>
+
+</html>

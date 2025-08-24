@@ -19,7 +19,6 @@
 
     <form id="addForm">
         <input type="number" id="catId" placeholder="Category ID" required />
-        <!-- <input type="text" id="username" placeholder="Username" required />  Username taken from session -->
         <input type="text" id="name" placeholder="Product Name" required />
         <input type="text" id="description" placeholder="Description" required />
         <input type="number" id="minBid" placeholder="Min Bid" required />
@@ -28,8 +27,6 @@
         <input type="date" id="endDate" placeholder="End Date" required />
         <button type="submit">Add Product</button>
     </form>
-
-
 
     <h1>Products</h1>
 
@@ -67,7 +64,6 @@
 
         document.getElementById("displayUsername").textContent = "Logged in as: " + (username ?? "Unknown");
 
-
         const tableBody = document.querySelector('#productsTable tbody');
 
         // Load products
@@ -91,6 +87,7 @@
                     <td>
                         <button onclick="editProduct(${p.product_Id})">Edit</button>
                         <button onclick="deleteProduct(${p.product_Id})">Delete</button>
+                        <button onclick="viewProduct(${p.product_Id})">View</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -102,7 +99,7 @@
             e.preventDefault();
             const dto = {
                 cat_Id: +document.getElementById('catId').value,
-                username: sessionStorage.getItem("username"), // 👈 take from session
+                username: sessionStorage.getItem("username"), 
                 product_Name: document.getElementById('name').value,
                 description: document.getElementById('description').value,
                 min_Bid_Price: +document.getElementById('minBid').value,
@@ -131,6 +128,11 @@
             window.location.href = `updateProduct.html?id=${id}`;
         }
 
+        // View: redirect to product bid page
+        function viewProduct(id) {
+            window.location.href = `viewProduct.html?productId=${id}`;
+        }
+
         window.addEventListener('DOMContentLoaded', loadProducts);
 
         // Logout function
@@ -139,14 +141,12 @@
             window.location.href = "login.html";
         }
 
-         // Security check: allow only  Admin, Seller, Bidder
+        // Security check
         if (role !== "Admin" && role !== "Seller" && role !== "Bidder") {
             alert("Access denied! Redirecting to login.");
             window.location.href = "login.html";
         }
-
     </script>
 
 </body>
-
 </html>

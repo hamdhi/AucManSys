@@ -1,5 +1,47 @@
 [
   {
+    "ContainingType": "AuctionManagementSystem.Controllers.BidsController",
+    "Method": "AddBid",
+    "RelativePath": "api/Bids/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "AuctionManagementSystem.Models.AddBidDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.BidsController",
+    "Method": "GetAllBids",
+    "RelativePath": "api/Bids/getAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.BidsController",
+    "Method": "GetBidsByProduct",
+    "RelativePath": "api/Bids/getByProduct/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AuctionManagementSystem.Controllers.LoginController",
     "Method": "Login",
     "RelativePath": "api/Login",

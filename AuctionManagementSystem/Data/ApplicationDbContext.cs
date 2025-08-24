@@ -17,6 +17,7 @@ namespace AuctionManagementSystem.Data
         public DbSet<Category> Categories { get; set; }   // <-- Add this
         public DbSet<Product> Products { get; set; }
         public DbSet<ConfirmedProduct> ConfirmedProducts { get; set; }
+        public DbSet<Bid> Bids { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

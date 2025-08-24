@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="bidForm">
+        <input type="number" id="productId" placeholder="Product ID" required />
+        <input type="number" id="bidAmount" placeholder="Your Bid" required />
+        <button type="submit">Place Bid</button>
+    </form>
+
+    <script>
+        document.getElementById('bidForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            const dto = {
+                ProductId: +document.getElementById('productId').value,
+                UserId: sessionStorage.getItem('userId'), // logged in user
+                BidAmount: +document.getElementById('bidAmount').value
+            };
+            await fetch('https://localhost:7212/api/Bids/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dto)
+            });
+            alert('Bid placed successfully!');
+        });
+    </script>
+</body>
+
+</html>
