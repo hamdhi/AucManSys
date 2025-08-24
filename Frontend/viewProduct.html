@@ -62,6 +62,7 @@
 
     <script>
         const productId = new URLSearchParams(window.location.search).get('productId');
+        let currentMinBid = 0; // to store current minimum bid
 
         async function loadProduct() {
             const res = await fetch(`https://localhost:7212/api/Product/getById/${productId}`);
@@ -71,6 +72,7 @@
             document.getElementById("productDescription").textContent = product.description;
             document.getElementById("minBid").textContent = product.min_Bid_Price;
 
+            currentMinBid = product.min_Bid_Price; // store min bid
             loadBids();
         }
 
@@ -94,7 +96,13 @@
                       <span class="bid-user">${b.productName}</span>
                 `;
                 bidsList.appendChild(li);
+
+                // Update currentMinBid to highest bid
+                if (b.bidAmount > currentMinBid) currentMinBid = b.bidAmount;
             });
+
+            // Update displayed min bid
+            document.getElementById("minBid").textContent = currentMinBid;
         }
 
         // Place a new bid
@@ -102,6 +110,12 @@
             const bidAmount = parseFloat(document.getElementById('bidAmount').value);
             if (!bidAmount || bidAmount <= 0) {
                 alert("Enter a valid bid amount");
+                return;
+            }
+
+            // Client-side validation: bid must be higher than currentMinBid
+            if (bidAmount <= currentMinBid) {
+                alert("Your bid must be higher than the current minimum bid: " + currentMinBid);
                 return;
             }
 
