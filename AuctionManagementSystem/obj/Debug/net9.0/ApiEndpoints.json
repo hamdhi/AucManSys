@@ -96,14 +96,14 @@
   },
   {
     "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
-    "Method": "AddAuthUsers",
-    "RelativePath": "api/UserAuth/Add",
+    "Method": "AddUser",
+    "RelativePath": "api/UserAuth/add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "addUserAuthDto",
+        "Name": "dto",
         "Type": "AuctionManagementSystem.Models.AddUserAuthDto",
         "IsRequired": true
       }
@@ -128,7 +128,7 @@
   },
   {
     "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
-    "Method": "GetAllUsers",
+    "Method": "GetAll",
     "RelativePath": "api/UserAuth/getAll",
     "HttpMethod": "GET",
     "IsController": true,
@@ -138,7 +138,7 @@
   },
   {
     "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
-    "Method": "GetUserById",
+    "Method": "GetById",
     "RelativePath": "api/UserAuth/getById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -166,8 +166,8 @@
         "IsRequired": true
       },
       {
-        "Name": "updateDto",
-        "Type": "AuctionManagementSystem.Models.AddUserAuthDto",
+        "Name": "dto",
+        "Type": "AuctionManagementSystem.Models.UpdateUserAuthDto",
         "IsRequired": true
       }
     ],

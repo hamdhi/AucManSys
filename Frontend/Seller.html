@@ -12,6 +12,7 @@
     <h1>Seller</h1>
     <script>
         const role = sessionStorage.getItem("userRole");
+        const username = sessionStorage.getItem("username");
         if (role !== "Seller") {
             alert("Access denied! Redirecting to login.");
             window.location.href = "login.html"; // redirect to login page
@@ -19,8 +20,10 @@
     </script>
 
     <button onclick="logout()">Logout</button>
+    <button onclick="window.location.href='ProductList.html'">View Products</button>
 
     <script>
+
         function logout() {
             sessionStorage.clear();
             window.location.href = "login.html";

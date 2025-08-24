@@ -13,6 +13,7 @@
 
     <!-- Users List button will be injected here if Admin -->
     <div id="adminButtons"></div>
+    <button onclick="logout()">Logout</button>
 
     <h3>Add New Product</h3>
 
@@ -131,6 +132,19 @@
         }
 
         window.addEventListener('DOMContentLoaded', loadProducts);
+
+        // Logout function
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "login.html";
+        }
+
+         // Security check: allow only  Admin, Seller, Bidder
+        if (role !== "Admin" && role !== "Seller" && role !== "Bidder") {
+            alert("Access denied! Redirecting to login.");
+            window.location.href = "login.html";
+        }
+
     </script>
 
 </body>
