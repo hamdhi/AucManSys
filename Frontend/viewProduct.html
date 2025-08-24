@@ -48,6 +48,7 @@
 </head>
 
 <body>
+
     <h2 id="productName"></h2>
     <p id="productDescription"></p>
     <p>Minimum Bid: <span id="minBid"></span></p>
@@ -62,7 +63,7 @@
 
     <script>
         const productId = new URLSearchParams(window.location.search).get('productId');
-        let currentMinBid = 0; // to store current minimum bid
+        let currentMinBid = 0;
 
         async function loadProduct() {
             const res = await fetch(`https://localhost:7212/api/Product/getById/${productId}`);
@@ -70,9 +71,9 @@
 
             document.getElementById("productName").textContent = product.product_Name;
             document.getElementById("productDescription").textContent = product.description;
-            document.getElementById("minBid").textContent = product.min_Bid_Price;
+            currentMinBid = product.min_Bid_Price;
+            document.getElementById("minBid").textContent = currentMinBid;
 
-            currentMinBid = product.min_Bid_Price; // store min bid
             loadBids();
         }
 
@@ -90,18 +91,15 @@
             bids.forEach(b => {
                 const li = document.createElement("li");
                 li.innerHTML = `
-                    <span class="bid-user">${b.username}</span>
-                    <span class="bid-amount">${b.bidAmount}</span> -
-                    <span class="bid-time">${new Date(b.bidTime).toLocaleString()}</span>
-                      <span class="bid-user">${b.productName}</span>
-                `;
+            <span class="bid-user">${b.username}</span>
+            <span class="bid-amount">${b.bidAmount}</span> -
+            <span class="bid-time">${new Date(b.bidTime).toLocaleString()}</span>
+        `;
                 bidsList.appendChild(li);
 
-                // Update currentMinBid to highest bid
                 if (b.bidAmount > currentMinBid) currentMinBid = b.bidAmount;
             });
 
-            // Update displayed min bid
             document.getElementById("minBid").textContent = currentMinBid;
         }
 
@@ -113,23 +111,22 @@
                 return;
             }
 
-            // Client-side validation: bid must be higher than currentMinBid
             if (bidAmount <= currentMinBid) {
                 alert("Your bid must be higher than the current minimum bid: " + currentMinBid);
                 return;
             }
 
-            // Send to AddBid API
             const res = await fetch('https://localhost:7212/api/Bids/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ProductId: parseInt(productId), BidAmount: bidAmount })
+                body: JSON.stringify({ ProductId: parseInt(productId), BidAmount: bidAmount }),
+                credentials: 'include' // ✅ send session cookie
             });
 
             if (res.ok) {
                 alert("Bid placed successfully!");
                 document.getElementById('bidAmount').value = '';
-                loadBids(); // refresh bids list
+                loadBids();
             } else {
                 const err = await res.text();
                 alert("Error placing bid: " + err);

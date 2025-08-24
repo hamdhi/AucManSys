@@ -1,4 +1,4 @@
-using AuctionManagementSystem.Data;
+﻿using AuctionManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +19,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:3000") // your frontend URL
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                .AllowCredentials(); // ✅ allow cookies/session
         });
 });
 
@@ -27,9 +28,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddDistributedMemoryCache(); // in-memory session
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // session expires after 30 mins
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+    options.Cookie.SameSite = SameSiteMode.None; // ✅ required for cross-origin
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // ✅ since you're using https
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
 
@@ -38,7 +41,6 @@ var app = builder.Build();
 
 // Use CORS
 app.UseCors("AllowFrontend");
-app.UseSession(); // enable session
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -48,7 +50,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
+
+app.UseSession(); // enable session
 
 app.UseAuthorization();
 

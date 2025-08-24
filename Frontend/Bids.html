@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -25,11 +25,12 @@
             await fetch('https://localhost:7212/api/Bids/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dto)
+                body: JSON.stringify(dto),
+                credentials: 'include' // ✅ send session cookie
             });
             alert('Bid placed successfully!');
         });
     </script>
 </body>
 
-</html>
+</html> -->

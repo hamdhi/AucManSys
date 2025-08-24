@@ -13,37 +13,37 @@ namespace AuctionManagementSystem.Controllers
         private readonly ApplicationDbContext _db;
         public BidsController(ApplicationDbContext db) => _db = db;
 
-        // ✅ POST: api/Bids/add
         [HttpPost("add")]
         public async Task<IActionResult> AddBid([FromBody] AddBidDto dto)
         {
-            if (dto == null)
-                return BadRequest("Request body is empty or invalid.");
+            if (dto == null) return BadRequest("Request body is empty or invalid.");
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            // ✅ validate product
             var product = await _db.Products.FindAsync(dto.ProductId);
             if (product == null) return NotFound("Product not found");
 
-            // ✅ Example: get logged-in user (for now, pick first user or mock user)
-            // Later: replace with actual User.Identity or session
-            var user = await _db.userAuths.FirstOrDefaultAsync();
+            // ✅ Get logged-in user from session
+            var userIdStr = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userIdStr))
+                return Unauthorized("User not logged in");
+
+            var userId = Guid.Parse(userIdStr);
+            var user = await _db.userAuths.FindAsync(userId);
             if (user == null) return NotFound("User not found");
 
-            // ✅ create bid
+            // ✅ Check bid amount client/server side
+            if (dto.BidAmount <= product.Min_Bid_Price)
+                return BadRequest("Bid must be higher than current minimum bid");
+
             var bid = new Bid
             {
                 ProductId = dto.ProductId,
-                UserId = user.UserId,   // comes from DB
+                UserId = user.UserId,
                 BidAmount = dto.BidAmount,
                 BidTime = DateTime.UtcNow
             };
 
-            // ✅ update product min bid
-            product.Min_Bid_Price = dto.BidAmount;
-
+            product.Min_Bid_Price = dto.BidAmount; // update min bid
             _db.Bids.Add(bid);
             await _db.SaveChangesAsync();
 
@@ -54,9 +54,11 @@ namespace AuctionManagementSystem.Controllers
                 productId = bid.ProductId,
                 userId = bid.UserId,
                 bidAmount = bid.BidAmount,
-                bidTime = bid.BidTime
+                bidTime = bid.BidTime,
+                username = user.Username
             });
         }
+
 
         [HttpGet("getByProduct/{productId}")]
         public async Task<IActionResult> GetBidsByProduct(int productId)
