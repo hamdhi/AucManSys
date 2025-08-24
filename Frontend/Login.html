@@ -3,6 +3,7 @@
 
 <head>
     <title>Login</title>
+      <link rel="stylesheet" href="General.css">
 </head>
 
 <body>
@@ -41,17 +42,21 @@
             switch (data.panel) {
                 case "Admin Panel":
                     sessionStorage.setItem("userRole", "Admin");
+                    sessionStorage.setItem("username", data.username);
                     window.location.href = "Admin.html";
                     break;
                 case "Seller Panel":
                     sessionStorage.setItem("userRole", "Seller");
                     window.location.href = "Seller.html";
+                    sessionStorage.setItem("username", data.username);
                     break;
                 case "Bidder Panel":
                     sessionStorage.setItem("userRole", "Bidder");
                     window.location.href = "Bidder.html";
+                    sessionStorage.setItem("username", data.username);
                     break;
                 default:
+                    sessionStorage.setItem("username", data.username);
                     alert("Unknown role");
             }
         });

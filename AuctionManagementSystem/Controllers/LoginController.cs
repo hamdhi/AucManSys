@@ -32,6 +32,7 @@ namespace AuctionManagementSystem.Controllers
             // Save role in session
             HttpContext.Session.SetString("UserId", user.UserId.ToString());
             HttpContext.Session.SetString("UserRole", user.Role);
+            HttpContext.Session.SetString("UserName", user.Username);
 
 
             // Update last login time
@@ -39,7 +40,12 @@ namespace AuctionManagementSystem.Controllers
             dbContext.SaveChanges();
 
             // Return panel info based on role
-            return Ok(new { message = "Login successful", panel = user.Role + " Panel" });
+            return Ok(new
+            {
+                message = "Login successful",
+                panel = user.Role + " Panel",
+                username = user.Username  // Sending The Username to frontend
+            });
         }
     }
 }

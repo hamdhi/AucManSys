@@ -2,13 +2,16 @@
 <html>
 <head>
     <title>Update Product</title>
+    <link rel="stylesheet" href="General.css">
 </head>
 <body>
     <h2>Update Product</h2>
+    
+    [ <h2 id="displayUsername"></h2> ]
 
     <form id="updateForm">
         <input type="number" id="catId" placeholder="Category ID" required />
-        <input type="text" id="username" placeholder="Username" required />
+        <!-- <input type="text" id="username" placeholder="Username" required /> Username taken from session -->
         <input type="text" id="name" placeholder="Product Name" required />
         <input type="text" id="description" placeholder="Description" required />
         <input type="number" id="minBid" placeholder="Min Bid" required />
@@ -19,6 +22,11 @@
     </form>
 
     <script>
+
+         // Display logged in username
+        const username = sessionStorage.getItem("username");
+        document.getElementById("displayUsername").textContent = "Logged in as: " + (username ?? "Unknown");
+
         const params = new URLSearchParams(window.location.search);
         const productId = parseInt(params.get('id')); // parse productId as int
 
@@ -26,12 +34,12 @@
             const res = await fetch(`https://localhost:7212/api/Product/getById/${productId}`);
             const p = await res.json();
             document.getElementById('catId').value = p.cat_Id;
-            document.getElementById('username').value = p.username;
             document.getElementById('name').value = p.product_Name;
             document.getElementById('description').value = p.description;
             document.getElementById('minBid').value = p.min_Bid_Price;
             document.getElementById('status').value = p.status;
             document.getElementById('photo').value = p.photo;
+            
             document.getElementById('endDate').value = new Date(p.end_Date).toISOString().split('T')[0];
         }
 
@@ -39,7 +47,7 @@
             e.preventDefault();
             const dto = {
                 cat_Id: parseInt(document.getElementById('catId').value), // parse cat_Id as int
-                username: document.getElementById('username').value,
+                username: sessionStorage.getItem("username"), // take from session
                 product_Name: document.getElementById('name').value,
                 description: document.getElementById('description').value,
                 min_Bid_Price: parseFloat(document.getElementById('minBid').value),

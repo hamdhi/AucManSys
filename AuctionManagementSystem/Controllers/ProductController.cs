@@ -91,7 +91,7 @@ namespace AuctionManagementSystem.Controllers
             product.Min_Bid_Price = updatedProduct.Min_Bid_Price;
             product.Status = updatedProduct.Status;
             product.Photo = updatedProduct.Photo;
-            product.Start_Date = updatedProduct.Start_Date;
+            //product.Start_Date = updatedProduct.Start_Date;  do not add start date it should not be changed
             product.End_Date = updatedProduct.End_Date;
             product.Cat_Id = updatedProduct.Cat_Id;
             product.Username = updatedProduct.Username;

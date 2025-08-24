@@ -2,43 +2,20 @@
 <html>
 <head>
     <title>Admin Panel</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="General.css">
 </head>
 <body>
     <h1>Admin Panel</h1>
+     [ <h2 id="displayUsername"></h2> ]
+    <button onclick="window.location.href='ProductList.html'">View Products</button>
+    <button onclick="window.location.href='UserList.html'">View Users</button>
     <button onclick="logout()">Logout</button>
 
-    <h2>User List</h2>
-    <table id="usersTable">
-        <thead>
-            <tr>
-                <th>UserId</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>CreatedAt</th>
-                <th>LastLogin</th>
-                <th>IsActive</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
     <script>
+        const username = sessionStorage.getItem("username");
+          // Set username in the H2 dynamically
+        document.getElementById("displayUsername").textContent = "Username: " + username;
+
         // Security check: allow only Admin
         const role = sessionStorage.getItem("userRole");
         if (role !== "Admin") {
@@ -46,41 +23,11 @@
             window.location.href = "login.html";
         }
 
-        // Fetch users from API
-        async function loadUsers() {
-            try {
-                const response = await fetch("https://localhost:7212/api/UserAuth/getAll");
-                if (!response.ok) throw new Error("Failed to fetch users");
-                
-                const users = await response.json();
-                const tbody = document.querySelector("#usersTable tbody");
-                tbody.innerHTML = "";
-
-                users.forEach(user => {
-                    const row = `<tr>
-                        <td>${user.userId}</td>
-                        <td>${user.username}</td>
-                        <td>${user.email}</td>
-                        <td>${user.role}</td>
-                        <td>${new Date(user.createdAt).toLocaleString()}</td>
-                        <td>${user.lastLogin ? new Date(user.lastLogin).toLocaleString() : "Never"}</td>
-                        <td>${user.isActive ? "Active" : "Inactive"}</td>
-                    </tr>`;
-                    tbody.innerHTML += row;
-                });
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        }
-
         // Logout function
         function logout() {
             sessionStorage.clear();
             window.location.href = "login.html";
         }
-
-        // Load users when page loads
-        loadUsers();
     </script>
 </body>
 </html>
