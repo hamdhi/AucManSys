@@ -51,6 +51,7 @@
 
     <h2 id="productName"></h2>
     <p id="productDescription"></p>
+    <img id="productImage" alt="Product Image" style="max-width:300px; display:block; margin:10px 0;" />
     <p>Minimum Bid: <span id="minBid"></span></p>
 
     <h3>Current Bids</h3>
@@ -73,6 +74,7 @@
             document.getElementById("productDescription").textContent = product.description;
             currentMinBid = product.min_Bid_Price;
             document.getElementById("minBid").textContent = currentMinBid;
+            document.getElementById("productImage").src =`/images/${product.photo}`;
 
             loadBids();
         }
@@ -88,12 +90,32 @@
                 return;
             }
 
+            // Front End Timezone Conversion
+            function toColombo(iso) {
+                if (!iso) return "";
+                const s = String(iso);
+                const normalized = /Z$|[+-]\d{2}:\d{2}$/.test(s) ? s : s + "Z"; // assume UTC if no zone
+                try {
+                    return new Intl.DateTimeFormat("en-GB", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                        timeZone: "Asia/Colombo",
+                    }).format(new Date(normalized));
+                } catch {
+                    // Fallback (rare): manual +5:30, Sri Lanka has no DST
+                    const d = new Date(normalized);
+                    return new Date(d.getTime() + 5.5 * 60 * 60 * 1000).toLocaleString("en-GB");
+                }
+            }
+
             bids.forEach(b => {
                 const li = document.createElement("li");
+                const localTime = toColombo(b.bidTime);
+
                 li.innerHTML = `
             <span class="bid-user">${b.username}</span>
             <span class="bid-amount">${b.bidAmount}</span> -
-            <span class="bid-time">${new Date(b.bidTime).toLocaleString()}</span>
+            <span class="bid-time">${new Date(localTime).toLocaleString()}</span>
         `;
                 bidsList.appendChild(li);
 
