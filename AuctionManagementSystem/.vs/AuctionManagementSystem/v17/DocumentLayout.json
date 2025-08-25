@@ -42,8 +42,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAB4AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T19:00:13.62Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-24T19:00:13.62Z"
             },
             {
               "$type": "Document",
@@ -65,7 +64,7 @@
               "RelativeDocumentMoniker": "Controllers\\BidsController.cs",
               "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\BidsController.cs",
               "RelativeToolTip": "Controllers\\BidsController.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAowFAAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAYwFAAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T13:46:26.592Z",
               "EditorCaption": ""

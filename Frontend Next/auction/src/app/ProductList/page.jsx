@@ -67,8 +67,8 @@ export default function ProductsPage() {
     }
   };
 
-  const editProduct = (id) => router.push(`/updateProduct?id=${id}`);
-  const viewProduct = (id) => router.push(`/viewProduct?productId=${id}`);
+  const editProduct = (id) => router.push(`/UpdateProduct?id=${id}`);
+  const viewProduct = (id) => router.push(`/ViewProduct?productId=${id}`);
   const logout = () => {
     sessionStorage.clear();
     router.push("/Login");
