@@ -22,6 +22,144 @@ namespace AuctionManagementSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.Bid", b =>
+                {
+                    b.Property<int>("BidId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BidId"));
+
+                    b.Property<decimal>("BidAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("BidTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BidId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Bids");
+                });
+
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.Category", b =>
+                {
+                    b.Property<int>("Cat_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Cat_Id"));
+
+                    b.Property<string>("Cat_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Cat_Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Cat_Id = 1,
+                            Cat_Name = "Electronics"
+                        },
+                        new
+                        {
+                            Cat_Id = 2,
+                            Cat_Name = "Fashion"
+                        },
+                        new
+                        {
+                            Cat_Id = 3,
+                            Cat_Name = "Home and Furniture"
+                        });
+                });
+
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.ConfirmedProduct", b =>
+                {
+                    b.Property<int>("Confirmed_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Confirmed_Id"));
+
+                    b.Property<string>("ConfirmedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Confirmed_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Product_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Confirmed_Id");
+
+                    b.HasIndex("Product_Id")
+                        .IsUnique();
+
+                    b.ToTable("ConfirmedProducts");
+                });
+
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.Product", b =>
+                {
+                    b.Property<int>("Product_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_Id"));
+
+                    b.Property<int>("Cat_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Confirmed_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("End_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Min_Bid_Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Product_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Start_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Product_Id");
+
+                    b.HasIndex("Cat_Id");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("AuctionManagementSystem.Models.Entities.UserAuth", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -61,6 +199,57 @@ namespace AuctionManagementSystem.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("userAuths");
+                });
+
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.Bid", b =>
+                {
+                    b.HasOne("AuctionManagementSystem.Models.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AuctionManagementSystem.Models.Entities.UserAuth", "UserAuth")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("UserAuth");
+                });
+
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.ConfirmedProduct", b =>
+                {
+                    b.HasOne("AuctionManagementSystem.Models.Entities.Product", "Product")
+                        .WithOne("Confirmed")
+                        .HasForeignKey("AuctionManagementSystem.Models.Entities.ConfirmedProduct", "Product_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.Product", b =>
+                {
+                    b.HasOne("AuctionManagementSystem.Models.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("Cat_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("AuctionManagementSystem.Models.Entities.Product", b =>
+                {
+                    b.Navigation("Confirmed");
                 });
 #pragma warning restore 612, 618
         }

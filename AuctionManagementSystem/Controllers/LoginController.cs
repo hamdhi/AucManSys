@@ -29,22 +29,40 @@ namespace AuctionManagementSystem.Controllers
             if (!user.IsActive)
                 return Forbid("User account is inactive");
 
+            // Save role in session
+            HttpContext.Session.SetString("UserId", user.UserId.ToString());
+            HttpContext.Session.SetString("UserRole", user.Role);
+            HttpContext.Session.SetString("UserName", user.Username);
+
+
             // Update last login time
             user.LastLogin = DateTime.Now;
             dbContext.SaveChanges();
 
             // Return panel info based on role
-            switch (user.Role)
+            return Ok(new
             {
-                case "Admin":
-                    return Ok(new { message = "Login successful", panel = "Admin Panel" });
-                case "Seller":
-                    return Ok(new { message = "Login successful", panel = "Seller Panel" });
-                case "Bidder":
-                    return Ok(new { message = "Login successful", panel = "Bidder Panel" });
-                default:
-                    return Ok(new { message = "Login successful", panel = "Unknown Role" });
-            }
+                message = "Login successful",
+                panel = user.Role + " Panel",
+                username = user.Username  // Sending The Username to frontend
+            });
         }
     }
 }
+
+
+/*
+  
+  check session on other endpoints
+ 
+ [HttpGet("dashboard")]
+public IActionResult Dashboard()
+{
+    var role = HttpContext.Session.GetString("UserRole");
+    if (string.IsNullOrEmpty(role))
+        return Unauthorized("Not logged in");
+
+    return Ok($"Welcome to {role} Dashboard");
+}
+
+ */

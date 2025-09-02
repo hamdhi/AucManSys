@@ -1,0 +1,206 @@
+<!-- done -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Product</title>
+    <link rel="stylesheet" href="General.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #bidsList li {
+            margin-bottom: 5px;
+        }
+
+        .bid-user {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .bid-amount {
+            color: green;
+            margin-right: 5px;
+        }
+
+        .bid-time {
+            font-size: 0.9em;
+            color: gray;
+        }
+
+        #addBidSection {
+            margin-top: 20px;
+        }
+
+        #bidAmount {
+            width: 150px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        #confirmBidBtn {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 id="productName"></h2>
+    <p id="productDescription"></p>
+    <img id="productImage" alt="Product Image" style="max-width:300px; display:block; margin:10px 0;" />
+    <p>Minimum Bid: <span id="minBid"></span></p>
+
+    <!-- Timer Function -->
+    <p id="countdown"></p>
+
+    <script>
+        productId = new URLSearchParams(window.location.search).get('productId');
+
+        // Call your API (testapi)
+        fetch(`https://localhost:7212/api/Product/getById/${productId}`)  // change to your API URL
+            .then(response => response.json())
+            .then(data => {
+                // Assume API returns { "id": 1, "title": "Laptop", "endTime": "2025-09-05T18:00:00Z" }
+                var endTime = new Date(data.end_Date).getTime();
+
+                var timer = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance = endTime - now;
+
+                    if (distance <= 0) {
+                        clearInterval(timer);
+                        document.getElementById("countdown").innerHTML = "⏳ Auction Ended!";
+                        // disable bid input + button
+                        document.getElementById("bidAmount").disabled = true;
+                        document.getElementById("confirmBidBtn").disabled = true;
+
+                    } else {
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        document.getElementById("countdown").innerHTML =
+                            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+                    }
+                }, 1000);
+            })
+            .catch(error => {
+                document.getElementById("countdown").innerHTML = "⚠️ Error fetching auction!";
+                console.error("Error:", error);
+            });
+    </script>
+
+    <!-- Timer Function End -->
+
+    <div id="addBidSection">
+        <input type="number" id="bidAmount" placeholder="Enter your bid" />
+        <button id="confirmBidBtn">Place Bid</button>
+    </div>
+
+
+    <h3>Current Bids</h3>
+    <ul id="bidsList">         </ul>
+
+    <script>
+        const productId = new URLSearchParams(window.location.search).get('productId');
+        let currentMinBid = 0;
+
+        async function loadProduct() {
+            const res = await fetch(`https://localhost:7212/api/Product/getById/${productId}`);
+            const product = await res.json();
+
+            document.getElementById("productName").textContent = product.product_Name;
+            document.getElementById("productDescription").textContent = product.description;
+            currentMinBid = product.min_Bid_Price;
+            document.getElementById("minBid").textContent = currentMinBid;
+            document.getElementById("productImage").src = `/images/${product.photo}`;
+
+            loadBids();
+        }
+
+        async function loadBids() {
+            const res = await fetch(`https://localhost:7212/api/Bids/getByProduct/${productId}`);
+            const bids = await res.json();
+            const bidsList = document.getElementById("bidsList");
+            bidsList.innerHTML = '';
+
+            if (bids.length === 0) {
+                bidsList.innerHTML = '<li>No bids yet.</li>';
+                return;
+            }
+
+            // Front End Timezone Conversion
+            function toColombo(iso) {
+                if (!iso) return "";
+                const s = String(iso);
+                const normalized = /Z$|[+-]\d{2}:\d{2}$/.test(s) ? s : s + "Z"; // assume UTC if no zone
+                try {
+                    return new Intl.DateTimeFormat("en-GB", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                        timeZone: "Asia/Colombo",
+                    }).format(new Date(normalized));
+                } catch {
+                    // Fallback (rare): manual +5:30, Sri Lanka has no DST
+                    const d = new Date(normalized);
+                    return new Date(d.getTime() + 5.5 * 60 * 60 * 1000).toLocaleString("en-GB");
+                }
+            }
+
+            bids.forEach(b => {
+                const li = document.createElement("li");
+                const localTime = toColombo(b.bidTime);
+
+                li.innerHTML = `
+            <span class="bid-user">${b.username}</span>
+            <span class="bid-amount">${b.bidAmount}</span> -
+            <span class="bid-time">${new Date(localTime).toLocaleString()}</span>
+        `;
+                bidsList.appendChild(li);
+
+                if (b.bidAmount > currentMinBid) currentMinBid = b.bidAmount;
+            });
+
+            document.getElementById("minBid").textContent = currentMinBid;
+        }
+
+        // Place a new bid
+        document.getElementById('confirmBidBtn').addEventListener('click', async () => {
+            const bidAmount = parseFloat(document.getElementById('bidAmount').value);
+            if (!bidAmount || bidAmount <= 0) {
+                alert("Enter a valid bid amount");
+                return;
+            }
+
+            if (bidAmount <= currentMinBid) {
+                alert("Your bid must be higher than the current minimum bid: " + currentMinBid);
+                return;
+            }
+
+            const res = await fetch('https://localhost:7212/api/Bids/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ProductId: parseInt(productId), BidAmount: bidAmount }),
+                credentials: 'include' // ✅ send session cookie
+            });
+
+            if (res.ok) {
+                alert("Bid placed successfully!");
+                document.getElementById('bidAmount').value = '';
+                loadBids();
+            } else {
+                const err = await res.text();
+                alert("Error placing bid: " + err);
+            }
+        });
+        window.addEventListener('DOMContentLoaded', loadProduct);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!-- done -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="General.css">
+</head>
+
+<body>
+    <h1>Bidder</h1>
+    <script>
+        const role = sessionStorage.getItem("userRole");
+        const username = sessionStorage.getItem("username");
+        if (role !== "Bidder") {
+            alert("Access denied! Redirecting to login.");
+            window.location.href = "login.html"; // redirect to login page
+        }
+    </script>
+
+    <h2 id="displayUsername"></h2>
+
+
+    <button onclick="logout()">Logout</button>
+    <button onclick="window.location.href='ProductList.html'">View Products</button>
+
+    <script>
+         // Set username in the H2 dynamically
+        document.getElementById("displayUsername").textContent = "Username: " + username;
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+
+</html>
