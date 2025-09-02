@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 
 
 namespace AuctionManagementSystem.Controllers
@@ -68,9 +69,13 @@ namespace AuctionManagementSystem.Controllers
                 Min_Bid_Price = dto.Min_Bid_Price,
                 Status = dto.Status,
                 Photo = dto.Photo,
-                Start_Date = DateTime.Now,  // server sets automatically
+                Start_Date = DateTime.Now,
                 End_Date = dto.End_Date
             };
+
+            if (product == null)
+                return NotFound("Product not found");
+
 
             dbContext.Products.Add(product);
             dbContext.SaveChanges();

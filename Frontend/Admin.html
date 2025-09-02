@@ -7,9 +7,15 @@
 </head>
 <body>
     <h1>Admin Panel</h1>
-     [ <h2 id="displayUsername"></h2> ]
+    <h2 id="displayUsername"></h2>
     <button onclick="window.location.href='ProductList.html'">View Products</button>
     <button onclick="window.location.href='UserList.html'">View Users</button>
+    <div>
+        <h3>Monthly Report</h3>
+        <input type="number" id="reportYear" placeholder="Year (e.g. 2025)" />
+        <input type="number" id="reportMonth" placeholder="Month (1-12)" />
+        <button onclick="downloadMonthlyReport()">Download PDF</button>
+    </div>
     <button onclick="logout()">Logout</button>
 
     <script>
@@ -28,6 +34,38 @@
         function logout() {
             sessionStorage.clear();
             window.location.href = "login.html";
+        }
+    </script>
+
+    <script>
+        const apiBase = 'https://localhost:7212/api/Report'; // change to your API base URL
+
+        function downloadPDF(blob, filename) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        }
+
+        async function downloadMonthlyReport() {
+            const year = document.getElementById('reportYear').value;
+            const month = document.getElementById('reportMonth').value;
+            if (!year || !month) { alert('Enter year and month'); return; }
+
+            try {
+                const res = await fetch(`${apiBase}/monthly/${year}/${month}`, { method: 'GET' });
+                if (!res.ok) { alert('Error fetching report'); return; }
+
+                const blob = await res.blob();
+                downloadPDF(blob, `MonthlyReport_${year}_${month}.pdf`);
+            } catch (err) {
+                console.error(err);
+                alert('Error downloading PDF');
+            }
         }
     </script>
 </body>

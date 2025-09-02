@@ -35,6 +35,9 @@ namespace AuctionManagementSystem.Controllers
             if (dto.BidAmount <= product.Min_Bid_Price)
                 return BadRequest("Bid must be higher than current minimum bid");
 
+            if (DateTime.Now >= product.End_Date)
+                return BadRequest("Auction already ended, cannot place bid");
+
             var bid = new Bid
             {
                 ProductId = dto.ProductId,

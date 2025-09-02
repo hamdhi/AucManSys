@@ -137,6 +137,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "AuctionManagementSystem.Controllers.ReportController",
+    "Method": "GetAuctionReport",
+    "RelativePath": "api/Report/auction/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.ReportController",
+    "Method": "GetMonthlyReport",
+    "RelativePath": "api/Report/monthly/{year}/{month}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "year",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "month",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
     "Method": "AddUser",
     "RelativePath": "api/UserAuth/add",

@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    [ <h2 id="displayUsername"></h2> ]
+    <h2 id="displayUsername"></h2>
 
     <!-- Users List button will be injected here if Admin -->
     <div id="adminButtons"></div>
@@ -89,11 +89,13 @@
                         <button onclick="editProduct(${p.product_Id})">Edit</button>
                         <button onclick="deleteProduct(${p.product_Id})">Delete</button>
                         <button onclick="viewProduct(${p.product_Id})">View</button>
+                        <button class="pdf-button" onclick="downloadAuctionReport(${p.product_Id})">Download PDF</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
             });
         }
+
 
         // Add product
         document.getElementById('addForm').addEventListener('submit', async e => {
@@ -146,6 +148,45 @@
         if (role !== "Admin" && role !== "Seller" && role !== "Bidder") {
             alert("Access denied! Redirecting to login.");
             window.location.href = "login.html";
+        }
+    </script>
+
+<script>
+        const apiBase = 'https://localhost:7212/api/Report'; // change to your API base URL
+
+        function downloadPDF(blob, filename) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        }
+
+        async function downloadAuctionReport(idValue) {
+            if (role!="Admin") {
+                alert("Only Admins can download reports.");
+                return;  
+            }
+
+            const proceed = confirm("Do you want to download the auction report PDF?");
+            if (!proceed) return;
+
+            const id = idValue
+            if (!id) { alert('Enter auction ID'); return; }
+
+            try {
+                const res = await fetch(`${apiBase}/auction/${id}`, { method: 'GET' });
+                if (!res.ok) { alert('Error fetching report'); return; }
+
+                const blob = await res.blob();
+                downloadPDF(blob, `AuctionReport_${id}.pdf`);
+            } catch (err) {
+                console.error(err);
+                alert('Error downloading PDF');
+            }
         }
     </script>
 

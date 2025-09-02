@@ -55,13 +55,57 @@
     <img id="productImage" alt="Product Image" style="max-width:300px; display:block; margin:10px 0;" />
     <p>Minimum Bid: <span id="minBid"></span></p>
 
-    <h3>Current Bids</h3>
-    <ul id="bidsList"></ul>
+    <!-- Timer Function -->
+    <p id="countdown"></p>
+
+    <script>
+        productId = new URLSearchParams(window.location.search).get('productId');
+
+        // Call your API (testapi)
+        fetch(`https://localhost:7212/api/Product/getById/${productId}`)  // change to your API URL
+            .then(response => response.json())
+            .then(data => {
+                // Assume API returns { "id": 1, "title": "Laptop", "endTime": "2025-09-05T18:00:00Z" }
+                var endTime = new Date(data.end_Date).getTime();
+
+                var timer = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance = endTime - now;
+
+                    if (distance <= 0) {
+                        clearInterval(timer);
+                        document.getElementById("countdown").innerHTML = "⏳ Auction Ended!";
+                        // disable bid input + button
+                        document.getElementById("bidAmount").disabled = true;
+                        document.getElementById("confirmBidBtn").disabled = true;
+
+                    } else {
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        document.getElementById("countdown").innerHTML =
+                            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+                    }
+                }, 1000);
+            })
+            .catch(error => {
+                document.getElementById("countdown").innerHTML = "⚠️ Error fetching auction!";
+                console.error("Error:", error);
+            });
+    </script>
+
+    <!-- Timer Function End -->
 
     <div id="addBidSection">
         <input type="number" id="bidAmount" placeholder="Enter your bid" />
         <button id="confirmBidBtn">Place Bid</button>
     </div>
+
+
+    <h3>Current Bids</h3>
+    <ul id="bidsList">         </ul>
 
     <script>
         const productId = new URLSearchParams(window.location.search).get('productId');
@@ -75,7 +119,7 @@
             document.getElementById("productDescription").textContent = product.description;
             currentMinBid = product.min_Bid_Price;
             document.getElementById("minBid").textContent = currentMinBid;
-            document.getElementById("productImage").src =`/images/${product.photo}`;
+            document.getElementById("productImage").src = `/images/${product.photo}`;
 
             loadBids();
         }
@@ -155,7 +199,6 @@
                 alert("Error placing bid: " + err);
             }
         });
-
         window.addEventListener('DOMContentLoaded', loadProduct);
     </script>
 </body>
