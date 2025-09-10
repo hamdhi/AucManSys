@@ -2,6 +2,7 @@
 using AuctionManagementSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuctionManagementSystem.Controllers
 {
@@ -11,9 +12,9 @@ namespace AuctionManagementSystem.Controllers
     {
         private readonly ApplicationDbContext dbContext;
 
-        public LoginController(ApplicationDbContext dbContext)
+        public LoginController(DbContextOptions<ApplicationDbContext> options)
         {
-            this.dbContext = dbContext;
+            this.dbContext = ApplicationDbContext.GetInstance(options);
         }
 
         [HttpPost]

@@ -11,7 +11,7 @@ namespace AuctionManagementSystem.Controllers
     public class BidsController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
-        public BidsController(ApplicationDbContext db) => _db = db;
+        public BidsController(DbContextOptions<ApplicationDbContext> options) => _db = ApplicationDbContext.GetInstance(options);
 
         [HttpPost("add")]
         public async Task<IActionResult> AddBid([FromBody] AddBidDto dto)
