@@ -1,0 +1,203 @@
+<!-- done -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="General.css">
+</head>
+
+<body>
+    <h2 id="displayUsername"></h2>
+
+    <!-- Users List button will be injected here if Admin -->
+    <div id="adminButtons"></div>
+    <button onclick="logout()">Logout</button>
+
+    <h3>Add New Product</h3>
+
+    <form id="addForm">
+        <select name="" id="catId">
+            <option value="1">Electronic</option>
+            <option value="2">Fashion</option>
+            <option value="3">Home and Furniture</option>
+        </select>
+
+        <input type="text" id="name" placeholder="Product Name" required />
+        <input type="text" id="description" placeholder="Description" required />
+        <input type="number" id="minBid" placeholder="Min Bid" required />
+        <!-- <input type="number" id="status" placeholder="Status (1/0)" required /> -->
+         <select name="" id="status">
+            <option value="0">Not Available</option>
+            <option value="1">Available</option>
+         </select>
+        <input type="text" id="photo" placeholder="Photo URL" />
+        <input type="date" id="endDate" placeholder="End Date" required />
+        <button type="submit">Add Product</button>
+    </form>
+
+    <h1>Products</h1>
+
+    <table id="productsTable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Min Bid Price</th>
+                <th>Status</th>
+                <th>Photo</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Products will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        const username = sessionStorage.getItem("username");
+        const role = sessionStorage.getItem("userRole");
+
+        if (role === "Admin") {
+            const btn = document.createElement("button");
+            btn.textContent = "View Users List";
+            btn.onclick = () => window.location.href = "UserList.html";
+            document.getElementById("adminButtons").appendChild(btn);
+        }
+
+        document.getElementById("displayUsername").textContent = "Logged in as: " + (username ?? "Unknown");
+
+        const tableBody = document.querySelector('#productsTable tbody');
+
+        // Load products
+        async function loadProducts() {
+            const res = await fetch('https://localhost:7212/api/Product/getAll');
+            const products = await res.json();
+            tableBody.innerHTML = '';
+            products.forEach(p => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${p.product_Id}</td>
+                    <td>${p.categoryName}</td>
+                    <td>${p.username}</td>
+                    <td>${p.product_Name}</td>
+                    <td>${p.description}</td>
+                    <td>${p.min_Bid_Price}</td>
+                    <td>${p.status == 1 ? 'Available' : 'Not Available'}</td>
+                    <td>${p.photo}</td>
+                    <td>${new Date(p.start_Date).toLocaleString()}</td>
+                    <td>${new Date(p.end_Date).toLocaleDateString()}</td>
+                    <td>
+                        <button onclick="editProduct(${p.product_Id})">Edit</button>
+                        <button onclick="deleteProduct(${p.product_Id})">Delete</button>
+                        <button onclick="viewProduct(${p.product_Id})">View</button>
+                        <button class="pdf-button" onclick="downloadAuctionReport(${p.product_Id})">Download PDF</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+
+        // Add product
+        document.getElementById('addForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            const dto = {
+                cat_Id: +document.getElementById('catId').value,
+                username: sessionStorage.getItem("username"), 
+                product_Name: document.getElementById('name').value,
+                description: document.getElementById('description').value,
+                min_Bid_Price: +document.getElementById('minBid').value,
+                status: +document.getElementById('status').value,
+                photo: document.getElementById('photo').value,
+                end_Date: document.getElementById('endDate').value
+            };
+            await fetch('https://localhost:7212/api/Product/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dto)
+            });
+            loadProducts();
+        });
+
+        // Delete product
+        async function deleteProduct(id) {
+            if (confirm('Delete this product?')) {
+                await fetch(`https://localhost:7212/api/Product/delete/${id}`, { method: 'DELETE' });
+                loadProducts();
+            }
+        }
+
+        // Edit: redirect to update page
+        function editProduct(id) {
+            window.location.href = `updateProduct.html?id=${id}`;
+        }
+
+        // View: redirect to product bid page
+        function viewProduct(id) {
+            window.location.href = `viewProduct.html?productId=${id}`;
+        }
+
+        window.addEventListener('DOMContentLoaded', loadProducts);
+
+        // Logout function
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        // Security check
+        if (role !== "Admin" && role !== "Seller" && role !== "Bidder") {
+            alert("Access denied! Redirecting to login.");
+            window.location.href = "login.html";
+        }
+    </script>
+
+<script>
+        const apiBase = 'https://localhost:7212/api/Report'; // change to your API base URL
+
+        function downloadPDF(blob, filename) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        }
+
+        async function downloadAuctionReport(idValue) {
+            if (role!="Admin") {
+                alert("Only Admins can download reports.");
+                return;  
+            }
+
+            const proceed = confirm("Do you want to download the auction report PDF?");
+            if (!proceed) return;
+
+            const id = idValue
+            if (!id) { alert('Enter auction ID'); return; }
+
+            try {
+                const res = await fetch(`${apiBase}/auction/${id}`, { method: 'GET' });
+                if (!res.ok) { alert('Error fetching report'); return; }
+
+                const blob = await res.blob();
+                downloadPDF(blob, `AuctionReport_${id}.pdf`);
+            } catch (err) {
+                console.error(err);
+                alert('Error downloading PDF');
+            }
+        }
+    </script>
+
+</body>
+</html>

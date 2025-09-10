@@ -5,6 +5,18 @@ namespace AuctionManagementSystem.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        private static ApplicationDbContext? _instance;
+
+        //Singleton Design Pattern
+        public static ApplicationDbContext GetInstance(DbContextOptions<ApplicationDbContext> options)
+        {
+            if (_instance == null)
+            {
+                  _instance = new ApplicationDbContext(options);
+            }
+            return _instance;
+        }
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -14,9 +26,14 @@ namespace AuctionManagementSystem.Data
         }
 
         public DbSet<UserAuth> userAuths { get; set; }
+        public DbSet<Category> Categories { get; set; }   // <-- Add this
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ConfirmedProduct> ConfirmedProducts { get; set; }
+        public DbSet<Bid> Bids { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // UserAuth configuration
             modelBuilder.Entity<UserAuth>(entity =>
             {
                 entity.HasKey(e => e.UserId);
@@ -38,7 +55,28 @@ namespace AuctionManagementSystem.Data
 
                 entity.Property(e => e.CreatedAt)
                       .HasDefaultValueSql("GETDATE()");
+
             });
+
+            // Seed 3 categories
+            modelBuilder.Entity<Category>().HasData(
+                new Category { Cat_Id = 1, Cat_Name = "Electronics" },
+                new Category { Cat_Id = 2, Cat_Name = "Fashion" },
+                new Category { Cat_Id = 3, Cat_Name = "Home and Furniture" }
+            );
+
+            // Product → Category relationship
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)   // navigation in Product
+                .WithMany(c => c.Products) // navigation in Category
+                .HasForeignKey(p => p.Cat_Id); // FK column in Product
+
+            // Product → ConfirmedProduct relationship (optional)
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Confirmed)
+                .WithOne(c => c.Product)
+                .HasForeignKey<ConfirmedProduct>(c => c.Product_Id);
+
         }
     }
 }

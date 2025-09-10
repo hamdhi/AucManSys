@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="General.css">
+</head>
+<body>
+    <h2 id="displayUsername"></h2>
+<button onclick="logout()">Logout</button>
+<button onclick="window.location.href='Admin.html'">Back to Admin Panel</button>
+    <br /><br />
+
+<h3>Add New User</h3>
+<form id="addUserForm">
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="text" id="password" placeholder="Password" required />
+    <select id="role">
+        <option value="Admin">Admin</option>
+        <option value="Seller">Seller</option>
+        <option value="Bidder">Bidder</option>
+    </select>
+    <select id="isActive">
+        <option value="true">Active</option>
+        <option value="false">Inactive</option>
+    </select>
+    <button type="submit">Add User</button>
+</form>
+
+<h3>User List</h3>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>IsActive</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="usersTable"></tbody>
+</table>
+
+<script>
+    const currentUser = sessionStorage.getItem("username");
+    document.getElementById("displayUsername").textContent = "Logged in as: " + currentUser;
+
+    // Load users
+    async function loadUsers() {
+        const res = await fetch('https://localhost:7212/api/UserAuth/getAll');
+        const users = await res.json();
+        const tbody = document.getElementById('usersTable');
+        tbody.innerHTML = '';
+        users.forEach(u => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+            <td>${u.username}</td>
+            <td>${u.email}</td>
+            <td>${u.role}</td>
+            <td>${u.isActive ? "Active" : "Inactive"}</td>
+            <td>
+                <button onclick='editUser("${u.userId}")'>Edit</button>
+                <button onclick='deleteUser("${u.userId}")'>Delete</button>
+            </td>
+        `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Add user
+    document.getElementById('addUserForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const dto = {
+            Username: document.getElementById('username').value,
+            Email: document.getElementById('email').value,
+            PasswordHash: document.getElementById('password').value,
+            Role: document.getElementById('role').value,
+            IsActive: document.getElementById('isActive').value === "true"
+        };
+        await fetch('https://localhost:7212/api/UserAuth/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dto)
+        });
+        loadUsers();
+    });
+
+    // Delete user
+    async function deleteUser(id) {
+        if (confirm('Delete this user?')) {
+            await fetch(`https://localhost:7212/api/UserAuth/delete/${id}`, { method: 'DELETE' });
+            loadUsers();
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadUsers);
+</script>
+
+<script>
+    // Logout function
+    function logout() {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+    }
+    // Security check: allow only Admin
+    const role = sessionStorage.getItem("userRole");
+    if (role !== "Admin") {
+        alert("Access denied! Redirecting to login.");
+        window.location.href = "login.html";
+    }
+    // Display logged in username
+    const username = sessionStorage.getItem("username");
+    document.getElementById("displayUsername").textContent = "Logged in as: " + (username ?? "Unknown");
+
+    // Edit user
+    function editUser(id) {
+        window.location.href = `UpdateUser.html?id=${id}`;
+    }
+</script>
+</body>
+</html>

@@ -1,5 +1,47 @@
 [
   {
+    "ContainingType": "AuctionManagementSystem.Controllers.BidsController",
+    "Method": "AddBid",
+    "RelativePath": "api/Bids/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "AuctionManagementSystem.Models.AddBidDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.BidsController",
+    "Method": "GetAllBids",
+    "RelativePath": "api/Bids/getAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.BidsController",
+    "Method": "GetBidsByProduct",
+    "RelativePath": "api/Bids/getByProduct/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AuctionManagementSystem.Controllers.LoginController",
     "Method": "Login",
     "RelativePath": "api/Login",
@@ -16,15 +58,131 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
-    "Method": "AddAuthUsers",
-    "RelativePath": "api/UserAuth/Add",
+    "ContainingType": "AuctionManagementSystem.Controllers.ProductController",
+    "Method": "AddProduct",
+    "RelativePath": "api/Product/add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "addUserAuthDto",
+        "Name": "dto",
+        "Type": "AuctionManagementSystem.Models.AddProductDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.ProductController",
+    "Method": "DeleteProduct",
+    "RelativePath": "api/Product/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.ProductController",
+    "Method": "GetAllProducts",
+    "RelativePath": "api/Product/getAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.ProductController",
+    "Method": "GetProductById",
+    "RelativePath": "api/Product/getById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.ProductController",
+    "Method": "UpdateProduct",
+    "RelativePath": "api/Product/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedProduct",
+        "Type": "AuctionManagementSystem.Models.Entities.Product",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.ReportController",
+    "Method": "GetAuctionReport",
+    "RelativePath": "api/Report/auction/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.ReportController",
+    "Method": "GetMonthlyReport",
+    "RelativePath": "api/Report/monthly/{year}/{month}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "year",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "month",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
+    "Method": "AddUser",
+    "RelativePath": "api/UserAuth/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
         "Type": "AuctionManagementSystem.Models.AddUserAuthDto",
         "IsRequired": true
       }
@@ -49,7 +207,7 @@
   },
   {
     "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
-    "Method": "GetAllUsers",
+    "Method": "GetAll",
     "RelativePath": "api/UserAuth/getAll",
     "HttpMethod": "GET",
     "IsController": true,
@@ -59,7 +217,7 @@
   },
   {
     "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
-    "Method": "GetUserById",
+    "Method": "GetById",
     "RelativePath": "api/UserAuth/getById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -87,8 +245,8 @@
         "IsRequired": true
       },
       {
-        "Name": "updateDto",
-        "Type": "AuctionManagementSystem.Models.AddUserAuthDto",
+        "Name": "dto",
+        "Type": "AuctionManagementSystem.Models.UpdateUserAuthDto",
         "IsRequired": true
       }
     ],
