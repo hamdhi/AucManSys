@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v9.0": {
       "AuctionManagementSystem/1.0.0": {
         "dependencies": {
+          "MailKit": "4.13.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.8",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.8",
@@ -53,11 +54,31 @@
           }
         }
       },
+      "BouncyCastle.Cryptography/2.5.1": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.5.1.28965"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
             "assemblyVersion": "2.14.0.0",
             "fileVersion": "2.14.1.48190"
+          }
+        }
+      },
+      "MailKit/4.13.0": {
+        "dependencies": {
+          "MimeKit": "4.13.0",
+          "System.Formats.Asn1": "9.0.8"
+        },
+        "runtime": {
+          "lib/net8.0/MailKit.dll": {
+            "assemblyVersion": "4.13.0.0",
+            "fileVersion": "4.13.0.0"
           }
         }
       },
@@ -749,6 +770,18 @@
           }
         }
       },
+      "MimeKit/4.13.0": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.5.1",
+          "System.Security.Cryptography.Pkcs": "8.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/MimeKit.dll": {
+            "assemblyVersion": "4.13.0.0",
+            "fileVersion": "4.13.0.0"
+          }
+        }
+      },
       "Mono.TextTemplating/3.0.0": {
         "dependencies": {
           "System.CodeDom": "6.0.0"
@@ -1106,6 +1139,7 @@
           "System.Formats.Asn1": "9.0.8"
         }
       },
+      "System.Security.Cryptography.Pkcs/8.0.1": {},
       "System.Security.Cryptography.ProtectedData/6.0.0": {
         "runtime": {
           "lib/net6.0/System.Security.Cryptography.ProtectedData.dll": {
@@ -1196,12 +1230,26 @@
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
     },
+    "BouncyCastle.Cryptography/2.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zy8TMeTP+1FH2NrLaNZtdRbBdq7u5MI+NFZQOBSM69u5RFkciinwzV2eveY6Kjf5MzgsYvvl6kTStsj3JrXqkg==",
+      "path": "bouncycastle.cryptography/2.5.1",
+      "hashPath": "bouncycastle.cryptography.2.5.1.nupkg.sha512"
+    },
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "MailKit/4.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GsepEHKkaQvbAuBizlhz93yc0ihJWzVCfoerfnpCeqiKLeS6gsTKInYy3/U2wqgkGE62TKs5OKS1a90pyc+j4g==",
+      "path": "mailkit/4.13.0",
+      "hashPath": "mailkit.4.13.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.OpenApi/9.0.8": {
       "type": "package",
@@ -1511,6 +1559,13 @@
       "path": "microsoft.win32.systemevents/6.0.0",
       "hashPath": "microsoft.win32.systemevents.6.0.0.nupkg.sha512"
     },
+    "MimeKit/4.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oa4JuhAzJydHnPCc/XWeyBUGd3uiVyWW0NXqOVgkXEHjbHlPVBssklK3mpw9sokjzAaBGdj0bceFsr+NXvAukA==",
+      "path": "mimekit/4.13.0",
+      "hashPath": "mimekit.4.13.0.nupkg.sha512"
+    },
     "Mono.TextTemplating/3.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1720,6 +1775,13 @@
       "sha512": "sha512-jIMXsKn94T9JY7PvPq/tMfqa6GAaHpElRDpmG+SuL+D3+sTw2M8VhnibKnN8Tq+4JqbPJ/f+BwtLeDMEnzAvRg==",
       "path": "system.security.cryptography.cng/5.0.0",
       "hashPath": "system.security.cryptography.cng.5.0.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.Pkcs/8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CoCRHFym33aUSf/NtWSVSZa99dkd0Hm7OCZUxORBjRB16LNhIEOf8THPqzIYlvKM0nNDAPTRBa1FxEECrgaxxA==",
+      "path": "system.security.cryptography.pkcs/8.0.1",
+      "hashPath": "system.security.cryptography.pkcs.8.0.1.nupkg.sha512"
     },
     "System.Security.Cryptography.ProtectedData/6.0.0": {
       "type": "package",

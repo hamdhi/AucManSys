@@ -5,6 +5,18 @@ namespace AuctionManagementSystem.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        private static ApplicationDbContext? _instance;
+
+        //Singleton Design Pattern
+        public static ApplicationDbContext GetInstance(DbContextOptions<ApplicationDbContext> options)
+        {
+            if (_instance == null)
+            {
+                  _instance = new ApplicationDbContext(options);
+            }
+            return _instance;
+        }
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -44,7 +56,7 @@ namespace AuctionManagementSystem.Data
                 entity.Property(e => e.CreatedAt)
                       .HasDefaultValueSql("GETDATE()");
 
-            });   // <-- this closing bracket was missing
+            });
 
             // Seed 3 categories
             modelBuilder.Entity<Category>().HasData(

@@ -19,11 +19,20 @@
     <h3>Add New Product</h3>
 
     <form id="addForm">
-        <input type="number" id="catId" placeholder="Category ID" required />
+        <select name="" id="catId">
+            <option value="1">Electronic</option>
+            <option value="2">Fashion</option>
+            <option value="3">Home and Furniture</option>
+        </select>
+
         <input type="text" id="name" placeholder="Product Name" required />
         <input type="text" id="description" placeholder="Description" required />
         <input type="number" id="minBid" placeholder="Min Bid" required />
-        <input type="number" id="status" placeholder="Status (1/0)" required />
+        <!-- <input type="number" id="status" placeholder="Status (1/0)" required /> -->
+         <select name="" id="status">
+            <option value="0">Not Available</option>
+            <option value="1">Available</option>
+         </select>
         <input type="text" id="photo" placeholder="Photo URL" />
         <input type="date" id="endDate" placeholder="End Date" required />
         <button type="submit">Add Product</button>

@@ -374,3 +374,6 @@ C:\Users\hamdh\Desktop\Project Main\Auction Management System\AuctionManagementS
 C:\Users\hamdh\Desktop\Project Main\Auction Management System\AuctionManagementSystem\bin\Debug\net9.0\runtimes\win-x86\native\libwinpthread-1.dll
 C:\Users\hamdh\Desktop\Project Main\Auction Management System\AuctionManagementSystem\bin\Debug\net9.0\runtimes\win-x86\native\qpdf.dll
 C:\Users\hamdh\Desktop\Project Main\Auction Management System\AuctionManagementSystem\bin\Debug\net9.0\runtimes\win-x86\native\zlib1.dll
+C:\Users\hamdh\Desktop\Project Main\Auction Management System\AuctionManagementSystem\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+C:\Users\hamdh\Desktop\Project Main\Auction Management System\AuctionManagementSystem\bin\Debug\net9.0\MailKit.dll
+C:\Users\hamdh\Desktop\Project Main\Auction Management System\AuctionManagementSystem\bin\Debug\net9.0\MimeKit.dll

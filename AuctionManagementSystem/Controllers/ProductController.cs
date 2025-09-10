@@ -3,6 +3,8 @@ using AuctionManagementSystem.Models;
 using AuctionManagementSystem.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
@@ -16,9 +18,9 @@ namespace AuctionManagementSystem.Controllers
     {
         private readonly ApplicationDbContext dbContext;
 
-        public ProductController(ApplicationDbContext dbContext)
+        public ProductController(DbContextOptions<ApplicationDbContext> options)
         {
-            this.dbContext = dbContext;
+            dbContext = ApplicationDbContext.GetInstance(options);
         }
 
         // GET: api/Product/getAll

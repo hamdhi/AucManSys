@@ -11,7 +11,7 @@ namespace AuctionManagementSystem.Controllers
     public class UserAuthController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
-        public UserAuthController(ApplicationDbContext db) => _db = db;
+        public UserAuthController(DbContextOptions<ApplicationDbContext> options) => _db = ApplicationDbContext.GetInstance(options);
 
         // GET: api/UserAuth/getAll
         [HttpGet("getAll")]
