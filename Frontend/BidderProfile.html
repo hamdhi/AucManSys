@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bidder Dashboard - Profile</title>
+    <link rel="stylesheet" href="General.css">
+    <style>
+        .profile-container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-item {
+            margin: 10px 0;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-item span {
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            width: 120px;
+        }
+        .btn-logout {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Bidder Profile</h2>
+        <div class="profile-item"><span>Username:</span> <span id="profileUsername"></span></div>
+        <div class="profile-item"><span>Email:</span> <span id="profileEmail"></span></div>
+        <div class="profile-item"><span>Role:</span> <span id="profileRole"></span></div>
+        <div class="profile-item"><span>Created At:</span> <span id="profileCreatedAt"></span></div>
+        <div class="profile-item"><span>Last Login:</span> <span id="profileLastLogin"></span></div>
+        <div class="profile-item"><span>Status:</span> <span id="profileStatus"></span></div>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        const username = sessionStorage.getItem("username");
+        const role = sessionStorage.getItem("userRole");
+
+        // Only allow Seller access
+        if (!username || role !== "Bidder") {
+            alert("Access denied! Only Bidders can view this page.");
+            window.location.href = "login.html";
+        }
+
+        async function loadProfile() {
+            try {
+                const res = await fetch('https://localhost:7212/api/UserAuth/getAll');
+                if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+                const users = await res.json();
+                const user = users.find(u => u.username === username);
+                if (!user) throw new Error("User not found in database");
+
+                document.getElementById("profileUsername").textContent = user.username || "N/A";
+                document.getElementById("profileEmail").textContent = user.email || "N/A";
+                document.getElementById("profileRole").textContent = user.role || "N/A";
+
+                // Safe date formatter with SQL Server fractional seconds handling
+                const formatDateTime = (dateStr, fallbackDateStr = user.createdAt) => {
+                    if (!dateStr || dateStr.trim() === "") return "N/A";
+
+                    // Truncate extra fractional seconds after milliseconds
+                    let cleaned = dateStr.replace(/\.(\d{3})\d+/, '.$1');
+
+                    // Convert to ISO format for proper parsing
+                    const [datePart, timePart] = cleaned.split(' ');
+                    const timeClean = timePart ? timePart.split('.')[0] : '00:00:00';
+                    const isoStr = `${datePart}T${timeClean}`;
+
+                    const date = new Date(isoStr);
+                    if (isNaN(date.getTime())) {
+                        if (fallbackDateStr) {
+                            const fallback = new Date(fallbackDateStr);
+                            return isNaN(fallback.getTime()) ? "N/A" : fallback.toLocaleString();
+                        }
+                        return "N/A";
+                    }
+
+                    // Format as DD-MM-YYYY hh:mm AM/PM
+                    return date.toLocaleString('en-US', { 
+                        day: '2-digit', month: '2-digit', year: 'numeric', 
+                        hour: '2-digit', minute: '2-digit', hour12: true 
+                    });
+                };
+
+                document.getElementById("profileCreatedAt").textContent = formatDateTime(user.createdAt);
+                document.getElementById("profileLastLogin").textContent = formatDateTime(user.lastLogin);
+                document.getElementById("profileStatus").textContent = user.isActive ? "Active" : "Inactive";
+
+            } catch (err) {
+                console.error("🛑 Profile Load Failed:", err);
+                alert("Error loading profile: " + err.message);
+            }
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        window.addEventListener("DOMContentLoaded", loadProfile);
+    </script>
+</body>
+</html>
