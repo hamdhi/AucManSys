@@ -14,6 +14,8 @@ namespace AuctionManagementSystem.Controllers
         public UserAuthController(DbContextOptions<ApplicationDbContext> options) => _db = ApplicationDbContext.GetInstance(options);
 
         // GET: api/UserAuth/getAll
+        // GET: api/UserAuth/getAll
+        // GET: api/UserAuth/getAll
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -23,13 +25,18 @@ namespace AuctionManagementSystem.Controllers
                     u.Username,
                     u.Email,
                     u.Role,
-                    u.CreatedAt,
-                    u.LastLogin,
+                    CreatedAt = u.CreatedAt.ToString("yyyy-MM-dd hh:mm tt"),  // <-- format here
+                    LastLogin = u.LastLogin.HasValue
+                                ? u.LastLogin.Value.ToString("yyyy-MM-dd hh:mm tt") // <-- format here
+                                : null,
                     u.IsActive
-                }).ToListAsync();
+                })
+                .ToListAsync();
 
             return Ok(users);
         }
+
+
 
         // POST: api/UserAuth/add
         [HttpPost("add")]
