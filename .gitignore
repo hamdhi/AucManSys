@@ -1,1 +1,48 @@
-AuctionManagementSystem/.vs/
+# Build directories
+/AuctionManagementSystem/bin/
+/AuctionManagementSystem/obj/
+/AuctionManagementSystem/Debug/
+/AuctionManagementSystem/Release/
+
+# Visual Studio
+.vs/
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build artifacts
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+*.nuget.props
+*.nuget.targets
+
+# Migrations caches (optional, only track migration code)
+/AuctionManagementSystem/Migrations/*.Designer.cs
+/AuctionManagementSystem/Migrations/*.cs
+
+# Frontend temp files (optional)
+Frontend/*.tmp
+Frontend/*.bak
+
+# Generated files
+project.assets.json
+project.nuget.cache
+*.json.lock
+artifacts/
+
+# Azure / publish settings
+*.Publish.xml
+*.pubxml
+*.publishproj

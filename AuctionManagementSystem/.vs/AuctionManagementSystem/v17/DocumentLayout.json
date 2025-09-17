@@ -3,20 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\controllers\\bidscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:controllers\\bidscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\updateuserauthdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\updateuserauthdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\auctionreportdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\auctionreportdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\adduserauthdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\adduserauthdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\addproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\addproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\addbiddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\addbiddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\addproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\addproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\controllers\\bidscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:controllers\\bidscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\controllers\\userauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,24 +47,8 @@
       "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\adduserauthdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\adduserauthdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\auctionreportdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\auctionreportdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\biddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\biddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\models\\updateuserauthdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|solutionrelative:models\\updateuserauthdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4F7F3DA0-5F7A-4DBE-8019-54569E5A5705}|AuctionManagementSystem.csproj|c:\\users\\hamdh\\desktop\\project main\\auction management system\\auctionmanagementsystem\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,11 +62,137 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BidsController.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\BidsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BidsController.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\BidsController.cs",
+              "RelativeToolTip": "Controllers\\BidsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:09:19.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AddProductDto.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddProductDto.cs",
+              "RelativeDocumentMoniker": "Models\\AddProductDto.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddProductDto.cs",
+              "RelativeToolTip": "Models\\AddProductDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:13:03.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Controllers\\LoginController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAABIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:09:49.585Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "Controllers\\ProductController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:09:58.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AddBidDto.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddBidDto.cs",
+              "RelativeDocumentMoniker": "Models\\AddBidDto.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddBidDto.cs",
+              "RelativeToolTip": "Models\\AddBidDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:10:49.659Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BidDto.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\BidDto.cs",
+              "RelativeDocumentMoniker": "Models\\BidDto.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\BidDto.cs",
+              "RelativeToolTip": "Models\\BidDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:10:46.285Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UpdateUserAuthDto.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\UpdateUserAuthDto.cs",
+              "RelativeDocumentMoniker": "Models\\UpdateUserAuthDto.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\UpdateUserAuthDto.cs",
+              "RelativeToolTip": "Models\\UpdateUserAuthDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:10:43.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ReportController.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\ReportController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ReportController.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\ReportController.cs",
+              "RelativeToolTip": "Controllers\\ReportController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:09:59.334Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AddUserAuthDto.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddUserAuthDto.cs",
+              "RelativeDocumentMoniker": "Models\\AddUserAuthDto.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddUserAuthDto.cs",
+              "RelativeToolTip": "Models\\AddUserAuthDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:10:48.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuctionReportDto.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AuctionReportDto.cs",
+              "RelativeDocumentMoniker": "Models\\AuctionReportDto.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AuctionReportDto.cs",
+              "RelativeToolTip": "Models\\AuctionReportDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T13:10:47.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "LoginDto.cs",
               "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\LoginDto.cs",
               "RelativeDocumentMoniker": "Models\\LoginDto.cs",
@@ -74,19 +200,20 @@
               "RelativeToolTip": "Models\\LoginDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:10:45.141Z"
+              "WhenOpened": "2025-09-09T13:10:45.141Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "UpdateUserAuthDto.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\UpdateUserAuthDto.cs",
-              "RelativeDocumentMoniker": "Models\\UpdateUserAuthDto.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\UpdateUserAuthDto.cs",
-              "RelativeToolTip": "Models\\UpdateUserAuthDto.cs",
+              "DocumentIndex": 8,
+              "Title": "UserAuthController.cs",
+              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\UserAuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserAuthController.cs",
+              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\UserAuthController.cs",
+              "RelativeToolTip": "Controllers\\UserAuthController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:10:43.924Z"
+              "WhenOpened": "2025-09-09T13:10:00.48Z"
             },
             {
               "$type": "Document",
@@ -99,128 +226,6 @@
               "ViewState": "AgIAADMAAAAAAAAAAAAswCkAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-09T13:10:02.309Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserAuthController.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\UserAuthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserAuthController.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\UserAuthController.cs",
-              "RelativeToolTip": "Controllers\\UserAuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:10:00.48Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ReportController.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\ReportController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ReportController.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\ReportController.cs",
-              "RelativeToolTip": "Controllers\\ReportController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:09:59.334Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BidsController.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\BidsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\BidsController.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\BidsController.cs",
-              "RelativeToolTip": "Controllers\\BidsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:09:19.436Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AddProductDto.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddProductDto.cs",
-              "RelativeDocumentMoniker": "Models\\AddProductDto.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddProductDto.cs",
-              "RelativeToolTip": "Models\\AddProductDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:13:03.801Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "Controllers\\LoginController.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:09:49.585Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:09:58.011Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AddBidDto.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddBidDto.cs",
-              "RelativeDocumentMoniker": "Models\\AddBidDto.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddBidDto.cs",
-              "RelativeToolTip": "Models\\AddBidDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:10:49.659Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BidDto.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\BidDto.cs",
-              "RelativeDocumentMoniker": "Models\\BidDto.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\BidDto.cs",
-              "RelativeToolTip": "Models\\BidDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:10:46.285Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AuctionReportDto.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AuctionReportDto.cs",
-              "RelativeDocumentMoniker": "Models\\AuctionReportDto.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AuctionReportDto.cs",
-              "RelativeToolTip": "Models\\AuctionReportDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:10:47.466Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AddUserAuthDto.cs",
-              "DocumentMoniker": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddUserAuthDto.cs",
-              "RelativeDocumentMoniker": "Models\\AddUserAuthDto.cs",
-              "ToolTip": "C:\\Users\\hamdh\\Desktop\\Project Main\\Auction Management System\\AuctionManagementSystem\\Models\\AddUserAuthDto.cs",
-              "RelativeToolTip": "Models\\AddUserAuthDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T13:10:48.595Z"
             }
           ]
         }
