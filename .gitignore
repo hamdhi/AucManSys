@@ -46,3 +46,45 @@ artifacts/
 *.Publish.xml
 *.pubxml
 *.publishproj
+
+
+
+# Node.js / Next.js stuff
+Frontend NextJS/node_modules/
+Frontend NextJS/.next/
+Frontend NextJS/.env
+
+# If your backend also uses Node
+AuctionManagementSystem/node_modules/
+AuctionManagementSystem/.env
+
+# Common junk
+*.log
+.DS_Store
+dist/
+build/
+
+
+# VS junk
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+*.dll
+*.exe
+*.pdb
+
+# NuGet
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Node.js / Next.js
+**/node_modules/
+**/.next/
