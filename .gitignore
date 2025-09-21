@@ -48,12 +48,6 @@ artifacts/
 *.publishproj
 
 
-
-# Node.js / Next.js stuff
-Frontend NextJS/node_modules/
-Frontend NextJS/.next/
-Frontend NextJS/.env
-
 # If your backend also uses Node
 AuctionManagementSystem/node_modules/
 AuctionManagementSystem/.env
@@ -88,3 +82,70 @@ artifacts/
 # Node.js / Next.js
 **/node_modules/
 **/.next/
+
+# =======================
+# Visual Studio / IDE
+# =======================
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# =======================
+# Build Folders
+# =======================
+bin/
+obj/
+
+# =======================
+# App settings (local config)
+# =======================
+appsettings.json
+
+# =======================
+# Frontend / Node (if any)
+# =======================
+node_modules/
+dist/
+
+# =======================
+# Logs
+# =======================
+*.log
+
+# =======================
+# OS files
+# =======================
+.DS_Store
+Thumbs.db
+
+# =======================
+# AuctionManagementSystem specific
+# =======================
+AuctionManagementSystem/.vs/
+AuctionManagementSystem/bin/
+AuctionManagementSystem/obj/
+AuctionManagementSystem/appsettings.json
+
+
+# React dependencies
+/frontend-react/node_modules
+/frontend-react/build
+
+# Logs
+/frontend-react/npm-debug.log*
+/frontend-react/yarn-debug.log*
+/frontend-react/yarn-error.log*
+/frontend-react/pnpm-debug.log*
+
+# Editor settings
+/frontend-react/.env.local
+/frontend-react/.env.development.local
+/frontend-react/.env.test.local
+/frontend-react/.env.production.local
+
+# IDE files (optional, prevents unnecessary files)
+.vscode/
+.idea/
+.DS_Store
