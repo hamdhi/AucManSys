@@ -1,0 +1,82 @@
+/* Login.css */
+
+/* Full-page container with a subtle gradient background */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* The form itself, designed as a clean card */
+.login-form {
+  background-color: white;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-form h2 {
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 24px;
+}
+
+/* A wrapper for each input field for spacing */
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* Modern styling for text and password inputs */
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box; /* Important for padding to not affect width */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+}
+
+/* The primary login button */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #667eea;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-button:hover {
+  background-color: #5a6ed8;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* A more prominent error message style */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+}
