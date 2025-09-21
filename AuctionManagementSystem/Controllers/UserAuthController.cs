@@ -76,6 +76,32 @@ namespace AuctionManagementSystem.Controllers
             await _db.SaveChangesAsync();
             return Ok(user);
         }
+        // GET: api/UserAuth/current
+        [HttpGet("current")]
+        public IActionResult GetCurrentUser()
+        {
+            var userIdStr = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userIdStr))
+                return Unauthorized("User not logged in");
+
+            if (!Guid.TryParse(userIdStr, out Guid userId))
+                return Unauthorized("Invalid session user ID");
+
+            var user = _db.userAuths
+                .Where(u => u.UserId == userId)
+                .Select(u => new
+                {
+                    u.Username,
+                    u.Role,
+                    u.IsActive
+                })
+                .FirstOrDefault();
+
+            if (user == null) return NotFound("User not found");
+
+            return Ok(user);
+        }
+
 
         // DELETE: api/UserAuth/delete/{id}
         [HttpDelete("delete/{id}")]

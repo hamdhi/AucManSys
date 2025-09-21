@@ -191,6 +191,16 @@
   },
   {
     "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
+    "Method": "GetCurrentUser",
+    "RelativePath": "api/UserAuth/current",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AuctionManagementSystem.Controllers.UserAuthController",
     "Method": "DeleteUser",
     "RelativePath": "api/UserAuth/delete/{id}",
     "HttpMethod": "DELETE",

@@ -27,8 +27,8 @@ namespace AuctionManagementSystem.Controllers
             if (user == null)
                 return Unauthorized("Invalid username or password");
 
-            if (!user.IsActive)
-                return Forbid("User account is inactive");
+            //if (!user.IsActive)
+               // return Forbid("User account is inactive");
 
             // Save role in session
             HttpContext.Session.SetString("UserId", user.UserId.ToString());

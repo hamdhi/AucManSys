@@ -1,4 +1,3 @@
-<!-- done -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,10 +44,18 @@
         #confirmBidBtn {
             padding: 5px 10px;
         }
+
+        #inactiveBidMsg {
+            color: red;
+            font-weight: bold;
+            display: none;
+        }
     </style>
 </head>
 
 <body>
+
+    <h2 id="displayUsername"></h2>
 
     <h2 id="productName"></h2>
     <p id="productDescription"></p>
@@ -58,59 +65,45 @@
     <!-- Timer Function -->
     <p id="countdown"></p>
 
-    <script>
-        productId = new URLSearchParams(window.location.search).get('productId');
-
-        // Call your API (testapi)
-        fetch(`https://localhost:7212/api/Product/getById/${productId}`)  // change to your API URL
-            .then(response => response.json())
-            .then(data => {
-                // Assume API returns { "id": 1, "title": "Laptop", "endTime": "2025-09-05T18:00:00Z" }
-                var endTime = new Date(data.end_Date).getTime();
-
-                var timer = setInterval(function () {
-                    var now = new Date().getTime();
-                    var distance = endTime - now;
-
-                    if (distance <= 0) {
-                        clearInterval(timer);
-                        document.getElementById("countdown").innerHTML = "⏳ Auction Ended!";
-                        // disable bid input + button
-                        document.getElementById("bidAmount").disabled = true;
-                        document.getElementById("confirmBidBtn").disabled = true;
-
-                    } else {
-                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                        document.getElementById("countdown").innerHTML =
-                            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-                    }
-                }, 1000);
-            })
-            .catch(error => {
-                document.getElementById("countdown").innerHTML = "⚠️ Error fetching auction!";
-                console.error("Error:", error);
-            });
-    </script>
-
-    <!-- Timer Function End -->
+    <p id="inactiveBidMsg">⚠️ You are an inactive bidder and cannot place bids.</p>
 
     <div id="addBidSection">
         <input type="number" id="bidAmount" placeholder="Enter your bid" />
         <button id="confirmBidBtn">Place Bid</button>
     </div>
 
-
     <h3>Current Bids</h3>
-    <ul id="bidsList">         </ul>
+    <ul id="bidsList"></ul>
 
     <script>
         const productId = new URLSearchParams(window.location.search).get('productId');
         let currentMinBid = 0;
+        let isActiveBidder = true;
+        const role = sessionStorage.getItem("userRole");
+        const username = sessionStorage.getItem("username");
 
+        // Fetch current user
+        async function checkCurrentUserBidder() {
+            try {
+                const res = await fetch('https://localhost:7212/api/UserAuth/current', { credentials: 'include' });
+                if (!res.ok) throw new Error('Cannot fetch current user');
+                const user = await res.json();
+
+                document.getElementById("displayUsername").textContent = `Hi, ${user.username} You Are ${user.role}`;
+
+                if (user.role === "Bidder" && !user.isActive) {
+                    isActiveBidder = false;
+                    document.getElementById("bidAmount").disabled = true;
+                    document.getElementById("confirmBidBtn").disabled = true;
+                    document.getElementById("inactiveBidMsg").style.display = "block";
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error checking user status');
+            }
+        }
+
+        // Load product
         async function loadProduct() {
             const res = await fetch(`https://localhost:7212/api/Product/getById/${productId}`);
             const product = await res.json();
@@ -121,9 +114,36 @@
             document.getElementById("minBid").textContent = currentMinBid;
             document.getElementById("productImage").src = `/images/${product.photo}`;
 
+            startCountdown(product.end_Date);
             loadBids();
         }
 
+        // Countdown timer
+        function startCountdown(endDate) {
+            const endTime = new Date(endDate).getTime();
+            const countdownEl = document.getElementById("countdown");
+
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+
+                if (distance <= 0) {
+                    clearInterval(timer);
+                    countdownEl.textContent = "⏳ Auction Ended!";
+                    document.getElementById("bidAmount").disabled = true;
+                    document.getElementById("confirmBidBtn").disabled = true;
+                } else {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                }
+            }, 1000);
+        }
+
+        // Load bids
         async function loadBids() {
             const res = await fetch(`https://localhost:7212/api/Bids/getByProduct/${productId}`);
             const bids = await res.json();
@@ -135,33 +155,19 @@
                 return;
             }
 
-            // Front End Timezone Conversion
             function toColombo(iso) {
                 if (!iso) return "";
                 const s = String(iso);
-                const normalized = /Z$|[+-]\d{2}:\d{2}$/.test(s) ? s : s + "Z"; // assume UTC if no zone
-                try {
-                    return new Intl.DateTimeFormat("en-GB", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                        timeZone: "Asia/Colombo",
-                    }).format(new Date(normalized));
-                } catch {
-                    // Fallback (rare): manual +5:30, Sri Lanka has no DST
-                    const d = new Date(normalized);
-                    return new Date(d.getTime() + 5.5 * 60 * 60 * 1000).toLocaleString("en-GB");
-                }
+                const normalized = /Z$|[+-]\d{2}:\d{2}$/.test(s) ? s : s + "Z";
+                const d = new Date(normalized);
+                return new Date(d.getTime() + 5.5 * 60 * 60 * 1000).toLocaleString("en-GB");
             }
 
             bids.forEach(b => {
                 const li = document.createElement("li");
-                const localTime = toColombo(b.bidTime);
-
-                li.innerHTML = `
-            <span class="bid-user">${b.username}</span>
-            <span class="bid-amount">${b.bidAmount}</span> -
-            <span class="bid-time">${new Date(localTime).toLocaleString()}</span>
-        `;
+                li.innerHTML = `<span class="bid-user">${b.username}</span>
+                                <span class="bid-amount">${b.bidAmount}</span> -
+                                <span class="bid-time">${toColombo(b.bidTime)}</span>`;
                 bidsList.appendChild(li);
 
                 if (b.bidAmount > currentMinBid) currentMinBid = b.bidAmount;
@@ -170,8 +176,13 @@
             document.getElementById("minBid").textContent = currentMinBid;
         }
 
-        // Place a new bid
+        // Place bid
         document.getElementById('confirmBidBtn').addEventListener('click', async () => {
+            if (!isActiveBidder) {
+                alert("You cannot place a bid because you are inactive.");
+                return;
+            }
+
             const bidAmount = parseFloat(document.getElementById('bidAmount').value);
             if (!bidAmount || bidAmount <= 0) {
                 alert("Enter a valid bid amount");
@@ -187,7 +198,7 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ProductId: parseInt(productId), BidAmount: bidAmount }),
-                credentials: 'include' // ✅ send session cookie
+                credentials: 'include'
             });
 
             if (res.ok) {
@@ -199,8 +210,18 @@
                 alert("Error placing bid: " + err);
             }
         });
-        window.addEventListener('DOMContentLoaded', loadProduct);
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            await checkCurrentUserBidder();
+            loadProduct();
+        });
     </script>
+
 </body>
 
 </html>
