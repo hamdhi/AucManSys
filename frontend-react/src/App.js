@@ -13,13 +13,14 @@ import SignUp from "./pages/SignUp";
 import UpdateProduct from "./pages/updateProduct";
 import UpdateUser from "./pages/UpdateUser";
 import ViewProduct from "./pages/viewProduct";
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Default route → login page */}
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<HomePage />} />
 
         {/* Your pages */}
         <Route path="/login" element={<Login />} />
@@ -32,6 +33,7 @@ function App() {
         <Route path="/update-product" element={<UpdateProduct />} />
         <Route path="/update-user" element={<UpdateUser />} />
         <Route path="/view-product" element={<ViewProduct />} />
+        <Route path="/HomePage" element={<HomePage />} />
       </Routes>
     </Router>
   );

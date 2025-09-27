@@ -1,6 +1,28 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Login.css"; // Import the new CSS file
+import { useNavigate, Link } from "react-router-dom";
+
+// Reusable header component for branding consistency
+const FormHeader = () => (
+  <div className="text-center">
+    <a href="/" className="inline-flex items-center space-x-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-8 h-8 text-indigo-600"
+      >
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      </svg>
+      <span className="text-2xl font-bold text-gray-800">
+        Auction<span className="text-indigo-600">House</span>
+      </span>
+    </a>
+    <h2 className="mt-6 text-3xl font-bold text-gray-800">Welcome Back!</h2>
+    <p className="mt-2 text-sm text-gray-600">
+      Log in to access your account.
+    </p>
+  </div>
+);
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -23,7 +45,8 @@ function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        setErrorMsg(data);
+        // Use a user-friendly default message if the API response is not helpful
+        setErrorMsg(data.message || "Invalid username or password.");
         return;
       }
 
@@ -53,34 +76,66 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Welcome Back!</h2>
-        
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full mx-auto">
+        <FormHeader />
 
-        <div className="input-group">
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <div className="mt-8 bg-white py-8 px-4 shadow-xl rounded-xl sm:px-10">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            {/* Error Message Display */}
+            {errorMsg && (
+              <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert">
+                <p>{errorMsg}</p>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300"
+            >
+              Log In
+            </button>
+          </form>
+
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Don't have an account yet?{" "}
+            <Link
+              to="/SignUp"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Sign Up
+            </Link>
+          </p>
         </div>
-        
-        <button type="submit" className="login-button">Login</button>
-        
-        {errorMsg && <div className="error-message">{errorMsg}</div>}
-      </form>
+      </div>
     </div>
   );
 }
