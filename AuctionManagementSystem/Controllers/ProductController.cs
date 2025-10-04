@@ -8,7 +8,8 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
-
+using System.IO; // ADDED: For file operations
+using Microsoft.AspNetCore.Hosting; // ADDED: For IWebHostEnvironment
 
 namespace AuctionManagementSystem.Controllers
 {
@@ -17,10 +18,13 @@ namespace AuctionManagementSystem.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IWebHostEnvironment _env; // ADDED: For getting wwwroot path
 
-        public ProductController(DbContextOptions<ApplicationDbContext> options)
+        // CHANGED: Added IWebHostEnvironment parameter - it will be injected automatically
+        public ProductController(DbContextOptions<ApplicationDbContext> options, IWebHostEnvironment env)
         {
             dbContext = ApplicationDbContext.GetInstance(options);
+            _env = env; // ADDED: Store environment
         }
 
         // GET: api/Product/getAll
@@ -59,52 +63,124 @@ namespace AuctionManagementSystem.Controllers
         }
 
         // POST: api/Product/add
+        // CHANGED: Better error handling and date parsing
         [HttpPost("add")]
-        public IActionResult AddProduct(AddProductDto dto)
+        public IActionResult AddProduct([FromForm] AddProductDto dto)
         {
-            var product = new Product
+            try
             {
-                Cat_Id = dto.Cat_Id,
-                Username = dto.Username,
-                Product_Name = dto.Product_Name,
-                Description = dto.Description,
-                Min_Bid_Price = dto.Min_Bid_Price,
-                Status = dto.Status,
-                Photo = dto.Photo,
-                Start_Date = DateTime.Now,
-                End_Date = dto.End_Date
-            };
+                string photoFileName = null;
 
-            if (product == null)
-                return NotFound("Product not found");
+                // ADDED: Handle file upload
+                if (dto.Photo != null && dto.Photo.Length > 0)
+                {
+                    try
+                    {
+                        // Generate unique filename
+                        var fileExtension = Path.GetExtension(dto.Photo.FileName);
+                        photoFileName = $"{Guid.NewGuid()}{fileExtension}";
 
+                        // Create uploads directory if it doesn't exist
+                        var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+                        if (!Directory.Exists(uploadsFolder))
+                        {
+                            Directory.CreateDirectory(uploadsFolder);
+                        }
 
-            dbContext.Products.Add(product);
-            dbContext.SaveChanges();
+                        // Save file
+                        var filePath = Path.Combine(uploadsFolder, photoFileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            dto.Photo.CopyTo(stream);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest($"File upload failed: {ex.Message}");
+                    }
+                }
 
-            return Ok("Product added successfully");
+                // CHANGED: Parse the date string
+                DateTime endDate;
+                if (!DateTime.TryParse(dto.End_Date, out endDate))
+                {
+                    return BadRequest("Invalid end date format");
+                }
+
+                var product = new Product
+                {
+                    Cat_Id = dto.Cat_Id,
+                    Username = dto.Username,
+                    Product_Name = dto.Product_Name,
+                    Description = dto.Description,
+                    Min_Bid_Price = dto.Min_Bid_Price,
+                    Status = dto.Status,
+                    Photo = photoFileName, // CHANGED: Store filename instead of URL
+                    Start_Date = DateTime.Now,
+                    End_Date = endDate // CHANGED: Use parsed date
+                };
+
+                dbContext.Products.Add(product);
+                dbContext.SaveChanges();
+
+                return Ok("Product added successfully");
+            }
+            catch (Exception ex)
+            {
+                // ADDED: Better error reporting
+                return BadRequest($"Error: {ex.Message}");
+            }
         }
 
-        // PUT: api/Product/update/{id}
         [HttpPut("update/{id}")]
-        public IActionResult UpdateProduct(int id, Product updatedProduct)
+        public IActionResult UpdateProduct(int id, [FromForm] UpdateProductDto dto)
         {
             var product = dbContext.Products.FirstOrDefault(p => p.Product_Id == id);
             if (product == null)
                 return NotFound("Product not found");
 
-            product.Product_Name = updatedProduct.Product_Name;
-            product.Description = updatedProduct.Description;
-            product.Min_Bid_Price = updatedProduct.Min_Bid_Price;
-            product.Status = updatedProduct.Status;
-            product.Photo = updatedProduct.Photo;
-            //product.Start_Date = updatedProduct.Start_Date;  do not add start date it should not be changed
-            product.End_Date = updatedProduct.End_Date;
-            product.Cat_Id = updatedProduct.Cat_Id;
-            product.Username = updatedProduct.Username;
-            product.Confirmed_Id = updatedProduct.Confirmed_Id;
+            product.Product_Name = dto.Product_Name;
+            product.Description = dto.Description;
+            product.Min_Bid_Price = dto.Min_Bid_Price;
+            product.Status = dto.Status;
+
+            // Handle new photo upload
+            if (dto.NewPhoto != null && dto.NewPhoto.Length > 0)
+            {
+                if (!string.IsNullOrEmpty(product.Photo))
+                {
+                    var oldPhotoPath = Path.Combine(_env.WebRootPath, "uploads", product.Photo);
+                    if (System.IO.File.Exists(oldPhotoPath))
+                        System.IO.File.Delete(oldPhotoPath);
+                }
+
+                var fileExtension = Path.GetExtension(dto.NewPhoto.FileName);
+                var photoFileName = $"{Guid.NewGuid()}{fileExtension}";
+                var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                var filePath = Path.Combine(uploadsFolder, photoFileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    dto.NewPhoto.CopyTo(stream);
+                }
+
+                product.Photo = photoFileName;
+            }
+            else if (!string.IsNullOrEmpty(dto.Photo))
+            {
+                product.Photo = dto.Photo;
+            }
+
+            product.End_Date = DateTime.Parse(dto.End_Date);
+            product.Cat_Id = dto.Cat_Id;
+            product.Username = dto.Username;
+            if (dto.Confirmed_Id.HasValue)
+                product.Confirmed_Id = dto.Confirmed_Id.Value;
 
             dbContext.SaveChanges();
+
             return Ok("Product updated");
         }
 
@@ -116,8 +192,27 @@ namespace AuctionManagementSystem.Controllers
             if (product == null)
                 return NotFound("Product not found");
 
+            // ADDED: Delete associated photo file
+            if (!string.IsNullOrEmpty(product.Photo))
+            {
+                try
+                {
+                    var photoPath = Path.Combine(_env.WebRootPath, "uploads", product.Photo);
+                    if (System.IO.File.Exists(photoPath))
+                    {
+                        System.IO.File.Delete(photoPath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log error but continue with deletion
+                    Console.WriteLine($"Error deleting photo: {ex.Message}");
+                }
+            }
+
             dbContext.Products.Remove(product);
             dbContext.SaveChanges();
+
             return Ok("Product deleted");
         }
     }

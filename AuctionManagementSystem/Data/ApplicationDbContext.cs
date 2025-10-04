@@ -76,7 +76,7 @@ namespace AuctionManagementSystem.Data
             modelBuilder.Entity<Bid>(entity =>
             {
                 entity.HasKey(e => e.BidId);
-                entity.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.BidAmount).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.BidTime).HasDefaultValueSql("GETDATE()");
             });
         }

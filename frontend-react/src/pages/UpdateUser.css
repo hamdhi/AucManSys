@@ -1,0 +1,91 @@
+/* Full-page background */
+.admin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Card style */
+.admin-card {
+  background-color: white;
+  padding: 30px 40px; /* slightly smaller for compact look */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px; /* a bit smaller width for compact form */
+  text-align: center;
+}
+
+.admin-card h1,
+.admin-card h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.admin-card h2 {
+  font-size: 18px;
+  color: #555;
+}
+
+.admin-card h3 {
+  margin: 15px 0;
+  font-size: 16px;
+  color: #444;
+}
+
+/* Inputs & select */
+.admin-card input,
+.admin-card select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px; /* smaller font */
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-card input:focus,
+.admin-card select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 4px rgba(102, 126, 234, 0.4);
+}
+
+/* Checkbox label */
+.admin-card label {
+  font-size: 14px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Buttons */
+.admin-card button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #667eea;
+  color: white;
+  font-size: 14px; /* smaller font for compact look */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.admin-card button:hover {
+  background-color: #5a6ed8;
+  transform: translateY(-1px);
+}
+
+.admin-card button:active {
+  transform: translateY(1px);
+}

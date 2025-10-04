@@ -14,12 +14,14 @@ namespace AuctionManagementSystem.Models.Entities
 
         // Username of the user who added the product
         public string Username { get; set; }
-
         public string Product_Name { get; set; }
         public string Description { get; set; }
         public decimal Min_Bid_Price { get; set; }
         public int Status { get; set; } // 1 = Available, 0 = Not Available
+
+        // CHANGED: Still string, but will store the file path/name
         public string Photo { get; set; }
+
         public DateTime Start_Date { get; set; }
         public DateTime End_Date { get; set; }
 

@@ -1,0 +1,117 @@
+/* Full-page background */
+.userlist-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #ffffff 0%, #fefdfe 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Card style */
+.userlist-card {
+  background-color: white;
+  padding: 20px 20px; /* smaller padding */
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px; /* smaller width */
+  text-align: center;
+}
+
+/* Headings */
+.userlist-card h2 {
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 16px; /* smaller */
+}
+
+.userlist-card h3 {
+  margin: 15px 0 10px;
+  font-size: 14px; /* smaller */
+  color: #444;
+}
+
+/* Inputs and selects */
+.userlist-card input,
+.userlist-card select {
+  width: 100%;
+  padding: 8px 10px; /* smaller padding */
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px; /* smaller font */
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+
+.userlist-card input:focus,
+.userlist-card select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 3px rgba(102, 126, 234, 0.5);
+}
+
+/* Buttons */
+.userlist-card button {
+  width: 100%;
+  padding: 8px; /* smaller */
+  margin-top: 6px;
+  border: none;
+  border-radius: 6px;
+  background-color: #667eea;
+  color: white;
+  font-size: 14px; /* smaller font */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.userlist-card button:hover {
+  background-color: #5a6ed8;
+  transform: translateY(-1px); /* smaller lift */
+}
+
+.userlist-card button:active {
+  transform: translateY(1px);
+}
+
+/* Table */
+.userlist-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 12px; /* smaller font */
+}
+
+.userlist-card th,
+.userlist-card td {
+  padding: 6px; /* smaller padding */
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.userlist-card th {
+  background-color: #ffffff;
+  color: white;
+}
+
+.userlist-card tr:nth-child(even) {
+  background-color: #f1f7ff;
+}
+
+.userlist-card tr:hover {
+  background-color: #e0f0ff;
+}
+
+/* Button group for top buttons */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 6px; /* smaller gap */
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
