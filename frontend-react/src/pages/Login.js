@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-// Reusable header component for branding consistency
+// Reusable header component updated with "Bidify" branding
 const FormHeader = () => (
   <div className="text-center">
     <a href="/" className="inline-flex items-center space-x-2">
@@ -11,10 +11,12 @@ const FormHeader = () => (
         fill="currentColor"
         className="w-8 h-8 text-indigo-600"
       >
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        {/* Updated Gavel Icon */}
+        <path d="M1 21h12v2H1zM19.34 7.34c-1.3-1.3-3.39-1.3-4.69 0l-1.06 1.06-2.12-2.12 1.06-1.06c1.3-1.3 1.3-3.39 0-4.69s-3.39-1.3-4.69 0l-4.24 4.24c-1.3 1.3-1.3 3.39 0 4.69l4.24 4.24c1.3 1.3 3.39 1.3 4.69 0l1.06-1.06 2.12 2.12-1.06 1.06c-1.3 1.3-1.3 3.39 0 4.69s3.39 1.3 4.69 0l4.24-4.24c1.3-1.3 1.3-3.39 0-4.69l-4.24-4.24zM3.81 10.18l-1.41 1.41c-.59.59-.59 1.54 0 2.12l4.24 4.24c.59.59 1.54.59 2.12 0l1.41-1.41L3.81 10.18zm14.77-1.41l-4.24-4.24c-.59-.59-1.54-.59-2.12 0L10.81 6l6.36 6.36 1.41-1.41c.58-.59.58-1.54 0-2.12z" />
       </svg>
+      {/* Updated Brand Name */}
       <span className="text-2xl font-bold text-gray-800">
-        Auction<span className="text-indigo-600">House</span>
+        Bid<span className="text-indigo-600">ify</span>
       </span>
     </a>
     <h2 className="mt-6 text-3xl font-bold text-gray-800">Welcome Back!</h2>
@@ -45,7 +47,6 @@ function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        // Use a user-friendly default message if the API response is not helpful
         setErrorMsg(data.message || "Invalid username or password.");
         return;
       }
@@ -110,7 +111,6 @@ function Login() {
               />
             </div>
 
-            {/* Error Message Display */}
             {errorMsg && (
               <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert">
                 <p>{errorMsg}</p>
@@ -141,3 +141,4 @@ function Login() {
 }
 
 export default Login;
+
