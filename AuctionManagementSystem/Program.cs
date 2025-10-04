@@ -44,6 +44,11 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
+
+//file Management for Photos
+app.UseStaticFiles(); 
+
+
 // Use CORS
 app.UseCors("AllowFrontend");
 

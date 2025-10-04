@@ -13,27 +13,30 @@ import SignUp from "./pages/SignUp";
 import UpdateProduct from "./pages/updateProduct";
 import UpdateUser from "./pages/UpdateUser";
 import ViewProduct from "./pages/viewProduct";
-import HomePage from './pages/HomePage';
+import PaymentInfo from "./pages/PaymentInfo";
+// import HomePage from './pages/HomePage';
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Default route → login page */}
-        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/" element={<HomePage />} /> */}
+        <Route path="/" element={<Login/>} />
 
         {/* Your pages */}
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/products" element={<ProductList />} />
-        <Route path="/users" element={<UserList />} />
+        <Route path="/productList" element={<ProductList />} />
+        <Route path="/userList" element={<UserList />} />
         <Route path="/seller" element={<Seller />} />
         <Route path="/bidder" element={<Bidder />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/update-product" element={<UpdateProduct />} />
-        <Route path="/update-user" element={<UpdateUser />} />
-        <Route path="/view-product" element={<ViewProduct />} />
-        <Route path="/HomePage" element={<HomePage />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/updateProduct" element={<UpdateProduct />} />
+        <Route path="/updateUser" element={<UpdateUser />} />
+        <Route path="/viewProduct" element={<ViewProduct />} />
+        <Route path="/paymentInfo" element={<PaymentInfo />} />
+        {/* <Route path="/HomePage" element={<HomePage />} /> */}
       </Routes>
     </Router>
   );
