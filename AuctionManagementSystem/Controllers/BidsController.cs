@@ -10,8 +10,14 @@ namespace AuctionManagementSystem.Controllers
     [ApiController]
     public class BidsController : ControllerBase
     {
+
+        //singleton is used internally by the entity framework core
         private readonly ApplicationDbContext _db;
-        public BidsController(DbContextOptions<ApplicationDbContext> options) => _db = ApplicationDbContext.GetInstance(options);
+        public BidsController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
 
         [HttpPost("add")]
         public async Task<IActionResult> AddBid([FromBody] AddBidDto dto)

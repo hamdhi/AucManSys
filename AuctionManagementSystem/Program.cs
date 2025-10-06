@@ -40,9 +40,16 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
+//email Add This
+builder.Services.AddTransient<IEmailService,EmailService>();
 
 
 var app = builder.Build();
+
+
+//file Management for Photos
+app.UseStaticFiles(); 
+
 
 // Use CORS
 app.UseCors("AllowFrontend");

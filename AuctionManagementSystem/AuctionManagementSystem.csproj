@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>cff49ea5-d8cc-406b-a325-e3a0e124cfd2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,10 @@
     </PackageReference>
     <PackageReference Include="QuestPDF" Version="2025.7.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
