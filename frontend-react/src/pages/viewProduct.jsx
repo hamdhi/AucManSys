@@ -84,6 +84,42 @@ function ViewProduct() {
     return () => clearInterval(interval);
   }, [product]);
 
+
+  // Send email when auction ends
+useEffect(() => {
+  const sendAuctionEndEmail = async () => {
+    try {
+      if (!auctionEnded || !product) return;
+
+      // Fetch all users to find email of highest bidder
+      const emailRes = await fetch("https://localhost:7212/api/UserAuth/getAll");
+      if (!emailRes.ok) throw new Error("Failed to fetch users");
+
+      const users = await emailRes.json();
+      const winnerEmail = users.find(u => u.username === highestBid?.username)?.email;
+
+      if (winnerEmail) {
+        // Send auction end email
+        await fetch(
+          `https://localhost:7212/api/Emails?receptor=${encodeURIComponent(
+            winnerEmail
+          )}&subject=${encodeURIComponent("Auction Ended")}&body=${encodeURIComponent(
+            `The auction for ${product.product_Name} has ended. You are the highest bidder with a bid of ${highestBid?.bidAmount}.`
+          )}`,
+          { method: "POST" }
+        );
+
+        console.log("✅ Auction end email sent to", winnerEmail);
+      }
+    } catch (err) {
+      console.error("❌ Error sending auction end email:", err);
+    }
+  };
+
+  sendAuctionEndEmail();
+}, [auctionEnded]);
+
+
   // Place bid instantly updates state
   const placeBid = async () => {
     const amount = parseFloat(bidAmount);
@@ -120,9 +156,10 @@ function ViewProduct() {
     }
   };
 
-  // Buy now (highest bidder only)
+
+  //Buy Now and Email Feature
   const buyNow = async () => {
-  try { // <-- open try here
+  try {
     if (!highestBid || highestBid.username !== loggedInUser) {
       alert("Only the highest bidder can buy this product.");
       return;
@@ -137,19 +174,51 @@ function ViewProduct() {
       status: "Paid",
     };
 
- const res = await fetch("https://localhost:7212/api/Payments", { // correct URL
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(paymentPayload),
-  credentials: "include",
-});
+    const res = await fetch("https://localhost:7212/api/Payments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(paymentPayload),
+      credentials: "include",
+    });
 
     if (!res.ok) {
       const err = await res.text();
       throw new Error(err);
     }
 
-    alert("Payment successful! Thank you for your purchase.");
+    // Fetch user email after payment success
+    const emailRes = await fetch("https://localhost:7212/api/UserAuth/getAll");
+    if (!emailRes.ok) {
+      throw new Error("Failed to fetch user email");
+    }
+    const emailData = await emailRes.json();
+    const userEmail = emailData.find(user => user.username === loggedInUser)?.email;
+
+    if (userEmail) {
+      // Send email to the user (POST request with body parameters)
+      const emailPayload = {
+        receptor: userEmail,
+        subject: "About Payment",
+        body: `Payment successful! Product: ${product.product_Name}, Amount: ${highestBid.bidAmount}`,
+      };
+
+      const sendEmailRes = await fetch(
+  `https://localhost:7212/api/Emails?receptor=${encodeURIComponent(userEmail)}&subject=${encodeURIComponent("About Payment")}&body=${encodeURIComponent(`Payment successful! Product: ${product.product_Name}, Amount: ${highestBid.bidAmount}`)}`,
+  {
+    method: "POST",
+  }
+);
+
+      if (!sendEmailRes.ok) {
+        const err = await sendEmailRes.text();
+        throw new Error(err);
+      }
+
+      alert("Payment successful! Thank you for your purchase.");
+    } else {
+      throw new Error("User email not found");
+    }
+
     setPaymentDone(true);
     navigate("/productList");
 
@@ -157,6 +226,8 @@ function ViewProduct() {
     alert("Error processing payment: " + err.message);
   }
 };
+
+
 
   return (
     <>
