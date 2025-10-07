@@ -1,15 +1,16 @@
-﻿using AuctionManagementSystem.Data;
+﻿using AuctionManagementSystem.Builders;
+using AuctionManagementSystem.Data;
 using AuctionManagementSystem.Models;
 using AuctionManagementSystem.Models.Entities;
+using Microsoft.AspNetCore.Hosting; // ADDED: For IWebHostEnvironment
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
+using System.IO; // ADDED: For file operations
 using System.Linq;
 using System.Security.Cryptography;
-using System.IO; // ADDED: For file operations
-using Microsoft.AspNetCore.Hosting; // ADDED: For IWebHostEnvironment
 
 namespace AuctionManagementSystem.Controllers
 {
@@ -106,19 +107,17 @@ namespace AuctionManagementSystem.Controllers
                 {
                     return BadRequest("Invalid end date format");
                 }
-
-                var product = new Product
-                {
-                    Cat_Id = dto.Cat_Id,
-                    Username = dto.Username,
-                    Product_Name = dto.Product_Name,
-                    Description = dto.Description,
-                    Min_Bid_Price = dto.Min_Bid_Price,
-                    Status = dto.Status,
-                    Photo = photoFileName, // CHANGED: Store filename instead of URL
-                    Start_Date = DateTime.Now,
-                    End_Date = endDate // CHANGED: Use parsed date
-                };
+                var product = new ProductBuilder()
+                    .WithCategoryId(dto.Cat_Id)
+                    .WithUsername(dto.Username)
+                    .WithProductName(dto.Product_Name)
+                    .WithDescription(dto.Description)
+                    .WithMinBidPrice(dto.Min_Bid_Price)
+                    .WithStatus(dto.Status)
+                    .WithPhoto(photoFileName)
+                    .WithStartDate(DateTime.Now)
+                    .WithEndDate(endDate)
+                    .Build();
 
                 dbContext.Products.Add(product);
                 dbContext.SaveChanges();
