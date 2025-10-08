@@ -133,13 +133,76 @@ frontend-react/            → Frontend (React.js)
 
 ---
 
+# Gmail SMTP Configuration for ASP.NET Applications
+
+This guide walks you through setting up Gmail SMTP with App Passwords for secure email sending in your ASP.NET application.
+
+## Prerequisites
+
+* A Google account
+* An ASP.NET application
+
+## Setup Steps
+
+### 1. Sign in to your Google account
+
+Navigate to [Google Account](https://myaccount.google.com/) and sign in.
+
+### 2. Enable 2-Step Verification
+
+Two-factor authentication is required to use App Passwords.
+
+1. Go to **Google Account** → **Security**
+2. Find **2-Step Verification** (also known as 2FA)
+3. Click and follow the prompts to turn it **ON**
+
+### 3. Access App Passwords
+
+After enabling 2-Step Verification:
+
+1. Return to **Security** section
+2. Scroll down to find **App passwords**
+3. Click to access the App passwords page
+
+### 4. Generate an App Password
+
+1. Click **Create** or **Select app**
+2. Choose **Mail** (or select **Other (Custom name)** and enter a name like `ASPNET_Email`)
+3. Click **Generate**
+
+### 5. Copy the App Password
+
+Google will display a 16-character password (without spaces). **Copy this password immediately** — you won't be able to see it again.
+
+### 6. Configure Your Application
+
+Add the following configuration to your `appsettings.json`:
+
+```json
+{
+  "Email_Config": {
+    "HOST": "smtp.gmail.com",
+    "PORT": 587,
+    "EMAIL": "your-email@gmail.com",
+    "PASSWORD": "your-google-app-password"
+  }
+}
+```
+
+Replace:
+* `your-email@gmail.com` with your actual Gmail address
+* `your-google-app-password` with the 16-character password from Step 5
+
+
+
+
 **Built with ❤️ using ASP.NET Core & React by Group 16**
 
-Fernando, BP
-Gayantha, DPAR
-Hamdhi, MHM
-Induranga, SPGN
-Kavinas, AGOC
-Pushpakumara, RDK
-Vimansa, SPD
-Wickramasinghe, WMRD
+Hamdhi MHM,
+Fernando BP,
+Gayantha DPAR,
+Induranga SPGN,
+Kavinas AGOC,
+Pushpakumara RDK,
+Vimansa SPD,
+Wickramasinghe WMRD
