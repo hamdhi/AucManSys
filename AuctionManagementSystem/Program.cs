@@ -2,17 +2,29 @@
 using AuctionManagementSystem.Services;
 using Microsoft.EntityFrameworkCore;
 using QuestPDF.Infrastructure;
+using Microsoft.OpenApi.Models;
+using System.Diagnostics;
+
+var url = "http://localhost:7212";
+Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+// Register Swagger services (correct way)
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuctionManagementSystem API", Version = "v1" });
+});
+
+
 builder.Services.AddHostedService<AutoBidService>();
 // Set QuestPDF license
 QuestPDF.Settings.License = LicenseType.Community;  // ✅ here
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 // Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -46,6 +58,23 @@ builder.Services.AddTransient<IEmailService,EmailService>();
 
 var app = builder.Build();
 
+// Enable middleware to serve generated Swagger as a JSON endpoint.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+
+    // Enable middleware to serve Swagger UI (HTML, JS, CSS, etc.),
+    // specifying the Swagger JSON endpoint.
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuctionManagementSystem API v1");
+    });
+}
+
+app.UseDefaultFiles();    // serves index.html automatically
+
+// Map API routes
+app.MapControllers();
 
 //file Management for Photos
 app.UseStaticFiles(); 
@@ -54,21 +83,15 @@ app.UseStaticFiles();
 // Use CORS
 app.UseCors("AllowFrontend");
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
-
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseSession(); // enable session
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapFallbackToFile("index.html"); // important for React routes
 
 app.Run();
