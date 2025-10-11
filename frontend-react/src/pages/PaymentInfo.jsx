@@ -32,10 +32,11 @@ function PaymentInfo() {
     fetchPayments();
   }, [navigate, role]);
 
-  // Group payments by userId
+  // Group payments by userId for easier display
   const paymentsByUser = payments.reduce((acc, payment) => {
-    if (!acc[payment.userId]) acc[payment.userId] = [];
-    acc[payment.userId].push(payment);
+    const userId = payment.userId || "Unknown User";
+    if (!acc[userId]) acc[userId] = [];
+    acc[userId].push(payment);
     return acc;
   }, {});
 
@@ -44,84 +45,90 @@ function PaymentInfo() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-50 py-8 px-4">
-        <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-          Payment Information
-        </h1>
-
-        {/* Filter Dropdown */}
-        <div className="flex justify-center mb-8">
-          <select
-            value={selectedUser}
-            onChange={(e) => setSelectedUser(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {userIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {payments.length === 0 ? (
-          <p className="text-center text-gray-500">No payments found.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.entries(paymentsByUser)
-              .filter(([userId]) => selectedUser === "All" || selectedUser === userId)
-              .map(([userId, userPayments]) => (
-                <div
-                  key={userId}
-                  className="bg-white shadow-md rounded-lg p-5 border border-gray-200"
-                >
-                  <h2 className="text-xl font-semibold mb-4 border-b border-gray-300 pb-2">
-                    User: {userId}
-                  </h2>
-
-                  {userPayments.map((p) => (
-                    <div
-                      key={p.id}
-                      className="mb-4 p-4 border border-gray-100 rounded hover:bg-gray-50 transition"
-                    >
-                      <p>
-                        <span className="font-semibold">Payment ID:</span> {p.id}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Product ID:</span> {p.productId || "-"}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Product Name:</span> {p.productName || "-"}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Amount:</span> {p.amount}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Method:</span> {p.method}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Date:</span>{" "}
-                        {new Date(p.date).toLocaleString("en-GB", {
-                          timeZone: "Asia/Colombo",
-                        })}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Status:</span> {p.status}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ))}
+      <div className="min-h-screen w-full bg-gray-100 font-sans">
+        <div className="container mx-auto px-4 py-12">
+          
+          {/* Page Header */}
+          <div className="mb-10 text-center">
+            <h1 className="text-4xl font-bold text-gray-800">Payment Information</h1>
+            <p className="mt-2 text-lg text-gray-500">Review all transaction records</p>
           </div>
-        )}
 
-        <div className="flex justify-center mt-8">
-          <button
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-            onClick={() => navigate("/admin")}
-          >
-            Back to Admin Panel
-          </button>
+          {/* Filter and Back Button Controls */}
+          <div className="mb-10 flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="relative">
+              <label htmlFor="userFilter" className="absolute -top-2 left-2 inline-block bg-gray-100 px-1 text-xs font-medium text-gray-600">
+                Filter by User
+              </label>
+              <select
+                id="userFilter"
+                value={selectedUser}
+                onChange={(e) => setSelectedUser(e.target.value)}
+                className="block w-60 rounded-lg border-gray-300 bg-white py-3 px-4 shadow-sm transition duration-300 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                {userIds.map((id) => (
+                  <option key={id} value={id}>
+                    {id === "All" ? "All Users" : `User: ${id}`}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button
+              className="rounded-lg bg-indigo-600 py-3 px-6 text-base font-semibold text-white shadow-lg transition-transform duration-300 ease-in-out hover:bg-indigo-700 hover:-translate-y-1 active:scale-95"
+              onClick={() => navigate("/admin")}
+            >
+              Back to Admin Panel
+            </button>
+          </div>
+
+          {/* Payment Cards Grid */}
+          {payments.length === 0 ? (
+            <p className="mt-20 text-center text-xl text-gray-500">No payment records found.</p>
+          ) : (
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+              {Object.entries(paymentsByUser)
+                .filter(([userId]) => selectedUser === "All" || selectedUser === userId)
+                .map(([userId, userPayments]) => (
+                  <div key={userId} className="transform-gpu rounded-2xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div className="border-b-2 border-indigo-100 p-6">
+                      <h2 className="text-xl font-bold text-gray-800">User ID:</h2>
+                      <p className="truncate font-mono text-gray-600">{userId}</p>
+                    </div>
+                    
+                    <div className="space-y-4 p-6">
+                      {userPayments.map((p) => (
+                        <div key={p.id} className="space-y-2 border-t border-gray-100 pt-4 first:border-t-0 first:pt-0">
+                          <p className="flex justify-between text-sm">
+                            <span className="font-semibold text-gray-700">Product:</span>
+                            <span className="text-gray-600">{p.productName || "N/A"}</span>
+                          </p>
+                          <p className="flex justify-between text-sm">
+                            <span className="font-semibold text-gray-700">Amount:</span>
+                            <span className="font-medium text-green-600">${p.amount?.toFixed(2)}</span>
+                          </p>
+                          <p className="flex justify-between text-sm">
+                            <span className="font-semibold text-gray-700">Date:</span>
+                            <span className="text-gray-600">
+                              {new Date(p.date).toLocaleString("en-GB", { timeZone: "Asia/Colombo" })}
+                            </span>
+                          </p>
+                          <p className="flex justify-between text-sm">
+                            <span className="font-semibold text-gray-700">Status:</span>
+                            <span
+                              className={`rounded-full px-3 py-1 text-xs font-bold ${
+                                p.status === "Completed" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
+                              }`}
+                            >
+                              {p.status}
+                            </span>
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
         </div>
       </div>
       <Footer />
