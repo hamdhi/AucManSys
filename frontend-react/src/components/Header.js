@@ -17,8 +17,8 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "#About", label: "About Us" },
-    { href: "#contact", label: "Contact Us" },
+    { href: "/aboutUs", label: "About Us" },
+    { href: "/contactUs", label: "Contact Us" },
   ];
 
   return (
