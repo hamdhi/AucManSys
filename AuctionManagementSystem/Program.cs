@@ -5,8 +5,10 @@ using QuestPDF.Infrastructure;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics;
 
-var url = "http://localhost:7212";
-Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+//only for production
+
+//var url = "http://localhost:7212";
+//Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
 
 var builder = WebApplication.CreateBuilder(args);
 
