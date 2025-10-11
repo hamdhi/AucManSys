@@ -14,15 +14,18 @@ import UpdateProduct from "./pages/updateProduct";
 import UpdateUser from "./pages/UpdateUser";
 import ViewProduct from "./pages/viewProduct";
 import PaymentInfo from "./pages/PaymentInfo";
-// import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
+
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Default route → login page */}
-        {/* <Route path="/" element={<HomePage />} /> */}
-        <Route path="/" element={<Login/>} />
+        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/" element={<Login/>} /> */}
 
         {/* Your pages */}
         <Route path="/login" element={<Login />} />
@@ -36,7 +39,8 @@ function App() {
         <Route path="/updateUser" element={<UpdateUser />} />
         <Route path="/viewProduct" element={<ViewProduct />} />
         <Route path="/paymentInfo" element={<PaymentInfo />} />
-        {/* <Route path="/HomePage" element={<HomePage />} /> */}
+        <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/contactUs" element={<ContactUs />} />
       </Routes>
     </Router>
   );
