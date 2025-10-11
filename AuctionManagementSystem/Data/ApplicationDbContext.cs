@@ -79,6 +79,11 @@ namespace AuctionManagementSystem.Data
                 entity.Property(e => e.BidAmount).HasColumnType("decimal(18,2)");
                 entity.Property(e => e.BidTime).HasDefaultValueSql("GETDATE()");
             });
+
+            // ---------------- Product Min_Bid_Price ----------------
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Min_Bid_Price)
+                .HasColumnType("decimal(18,2)"); // Explicit precision and scale for Min_Bid_Price
         }
     }
 }
