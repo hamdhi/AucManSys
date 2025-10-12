@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
  <ItemGroup>
-    <Content Include="wwwroot\**" CopyToPublishDirectory="PreserveNewest" >
+    <Content Include="wwwroot\**" CopyToPublishDirectory="PreserveNewest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
 </ItemGroup>
@@ -34,6 +34,10 @@
   <Content Include="appsettings.Development.json">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
+</ItemGroup>
+
+<ItemGroup>
+  <Folder Include="Migrations\" />
 </ItemGroup>
 
 
