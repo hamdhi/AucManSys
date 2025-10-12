@@ -1,5 +1,7 @@
 # 🏛️ Auction Management System - Group 16
 
+# Login Details - username: admin , password : admin
+
 A full-stack **Auction Management System** built with **ASP.NET Core (.NET 9)** for the backend and **React.js** for the frontend. Uses **SQL Server** as the database.
 
 ---
