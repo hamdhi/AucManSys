@@ -196,6 +196,112 @@ namespace AuctionManagementSystem.Migrations
                     b.HasIndex("Cat_Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Product_Id = 1,
+                            Cat_Id = 1,
+                            Description = "Latest model smartphone",
+                            End_Date = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Min_Bid_Price = 300.00m,
+                            Photo = "/images/default.png",
+                            Product_Name = "Smartphone",
+                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Product_Id = 2,
+                            Cat_Id = 1,
+                            Description = "High performance laptop",
+                            End_Date = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Min_Bid_Price = 800.00m,
+                            Photo = "/images/default.png",
+                            Product_Name = "Laptop",
+                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Product_Id = 6,
+                            Cat_Id = 2,
+                            Description = "Comfortable cotton T-shirt",
+                            End_Date = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Min_Bid_Price = 20.00m,
+                            Photo = "/images/default.png",
+                            Product_Name = "T-shirt",
+                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Product_Id = 7,
+                            Cat_Id = 2,
+                            Description = "Stylish blue jeans",
+                            End_Date = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Min_Bid_Price = 40.00m,
+                            Photo = "/images/default.png",
+                            Product_Name = "Jeans",
+                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Product_Id = 11,
+                            Cat_Id = 3,
+                            Description = "Comfortable 3-seater sofa",
+                            End_Date = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Min_Bid_Price = 300.00m,
+                            Photo = "/images/default.png",
+                            Product_Name = "Sofa",
+                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Product_Id = 12,
+                            Cat_Id = 3,
+                            Description = "Wooden dining table",
+                            End_Date = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Min_Bid_Price = 250.00m,
+                            Photo = "/images/default.png",
+                            Product_Name = "Dining Table",
+                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Product_Id = 16,
+                            Cat_Id = 1,
+                            Description = "Action figure of Batman",
+                            End_Date = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Min_Bid_Price = 25.00m,
+                            Photo = "/images/default.png",
+                            Product_Name = "Batman Action Figure",
+                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Product_Id = 17,
+                            Cat_Id = 1,
+                            Description = "Action figure of Superman",
+                            End_Date = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Min_Bid_Price = 25.00m,
+                            Photo = "/images/default.png",
+                            Product_Name = "Superman Action Figure",
+                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Username = "admin"
+                        });
                 });
 
             modelBuilder.Entity("AuctionManagementSystem.Models.Entities.UserAuth", b =>
@@ -237,6 +343,18 @@ namespace AuctionManagementSystem.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("userAuths");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            CreatedAt = new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@example.com",
+                            IsActive = true,
+                            PasswordHash = "admin",
+                            Role = "Admin",
+                            Username = "admin"
+                        });
                 });
 
             modelBuilder.Entity("AuctionManagementSystem.Models.Entities.Bid", b =>
