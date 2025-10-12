@@ -12,9 +12,10 @@ namespace AuctionManagementSystem.Controllers
     {
         private readonly ApplicationDbContext dbContext;
 
-        public LoginController(DbContextOptions<ApplicationDbContext> options)
+        // Inject the DbContext directly
+        public LoginController(ApplicationDbContext dbContext)
         {
-            this.dbContext = ApplicationDbContext.GetInstance(options);
+            this.dbContext = dbContext;
         }
 
         [HttpPost]
