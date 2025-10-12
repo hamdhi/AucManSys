@@ -19,13 +19,13 @@ namespace AuctionManagementSystem.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly IWebHostEnvironment _env; // ADDED: For getting wwwroot path
+        private readonly IWebHostEnvironment _env;
 
-        // CHANGED: Added IWebHostEnvironment parameter - it will be injected automatically
-        public ProductController(DbContextOptions<ApplicationDbContext> options, IWebHostEnvironment env)
+        // The constructor now asks for ApplicationDbContext directly
+        public ProductController(ApplicationDbContext _dbContext, IWebHostEnvironment env)
         {
-            dbContext = ApplicationDbContext.GetInstance(options);
-            _env = env; // ADDED: Store environment
+            dbContext = _dbContext; // The instance is provided by dependency injection
+            _env = env;
         }
 
         // GET: api/Product/getAll
@@ -127,7 +127,7 @@ namespace AuctionManagementSystem.Controllers
             catch (Exception ex)
             {
                 // ADDED: Better error reporting
-                return BadRequest($"Error: {ex.Message}");
+                return StatusCode(500, $"An error occurred: {ex.ToString()}");
             }
         }
 

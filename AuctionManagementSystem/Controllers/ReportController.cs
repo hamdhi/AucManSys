@@ -15,11 +15,11 @@ namespace AuctionManagementSystem.Controllers
     {
         private readonly ApplicationDbContext dbContext;
 
-        public ReportController(DbContextOptions<ApplicationDbContext> options)
+        // Inject the DbContext directly
+        public ReportController(ApplicationDbContext dbContext)
         {
-            dbContext = ApplicationDbContext.GetInstance(options);
+            this.dbContext = dbContext;
         }
-
         [HttpGet("auction/{id}")]
         public IActionResult GetAuctionReport(int id)
         {
