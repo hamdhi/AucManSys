@@ -39,22 +39,46 @@ namespace AuctionManagementSystem.Data
                 entity.HasKey(e => e.UserId);
                 entity.Property(e => e.Username).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(200);
-                entity.Property(e => e.PasswordHash).IsRequired();
+                entity.Property(e => e.PasswordHash).IsRequired().HasMaxLength(60); // Changed from default
                 entity.Property(e => e.Role).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
             });
 
             modelBuilder.Entity<UserAuth>().HasData(
-        new UserAuth
-        {
-            UserId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-            Username = "admin",
-            Email = "admin@example.com",
-            PasswordHash = "admin",
-            Role = "Admin",
-            CreatedAt = new DateTime(2023, 10, 10),
-            IsActive = true
-        });
+    // Admin User - Password: "admin"
+    new UserAuth
+    {
+        UserId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+        Username = "admin",
+        Email = "admin@example.com",
+        PasswordHash = "$2a$12$JAqHJvucSzrKae/dNlwdEOdZTMp25cU1vM44EVTFyEVzawknBeeb2", // "admin"
+        Role = "Admin",
+        CreatedAt = new DateTime(2023, 10, 10),
+        IsActive = true
+    },
+    // Seller User - Password: "seller123"
+    new UserAuth
+    {
+        UserId = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+        Username = "seller",
+        Email = "seller@example.com",
+        PasswordHash = "$2a$12$5.y8Oqufam1aHHF.M3xro.LQ9zLrAVWGwUrHWDIZrr2s4SnuchNJm", // "seller"
+        Role = "Seller",
+        CreatedAt = new DateTime(2023, 10, 10),
+        IsActive = true
+    },
+    // Bidder User - Password: "bidder123"  
+    new UserAuth
+    {
+        UserId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+        Username = "bidder",
+        Email = "bidder@example.com",
+        PasswordHash = "$2a$12$EZ7ueJR1feYJWSGEPe37tOkki/e43/P2.xAd4rMcSwZQldBIwZzAS", // "bidder"
+        Role = "Bidder",
+        CreatedAt = new DateTime(2023, 10, 10),
+        IsActive = true
+    }
+);
 
             // ---------------- Category ----------------
             modelBuilder.Entity<Category>().HasData(

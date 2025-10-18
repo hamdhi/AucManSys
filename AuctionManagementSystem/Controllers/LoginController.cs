@@ -3,6 +3,7 @@ using AuctionManagementSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 
 namespace AuctionManagementSystem.Controllers
 {
@@ -12,7 +13,6 @@ namespace AuctionManagementSystem.Controllers
     {
         private readonly ApplicationDbContext dbContext;
 
-        // Inject the DbContext directly
         public LoginController(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
@@ -21,9 +21,9 @@ namespace AuctionManagementSystem.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginDto loginDto)
         {
+            // FIXED: Only check username first, NOT password
             var user = dbContext.userAuths
-                .FirstOrDefault(u => u.Username == loginDto.Username
-                                  && u.PasswordHash == loginDto.Password); // in real app, hash check
+                .FirstOrDefault(u => u.Username == loginDto.Username);
 
             if (user == null)
                 return Unauthorized("Invalid username or password");
@@ -31,11 +31,16 @@ namespace AuctionManagementSystem.Controllers
             if (!user.IsActive)
                 return Forbid("User account is inactive");
 
+            // FIXED: Now BCrypt verification actually runs
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash);
+
+            if (!isPasswordValid)
+                return Unauthorized("Invalid username or password");
+
             // Save role in session
             HttpContext.Session.SetString("UserId", user.UserId.ToString());
             HttpContext.Session.SetString("UserRole", user.Role);
             HttpContext.Session.SetString("UserName", user.Username);
-
 
             // Update last login time
             user.LastLogin = DateTime.Now;
@@ -46,25 +51,8 @@ namespace AuctionManagementSystem.Controllers
             {
                 message = "Login successful",
                 panel = user.Role + " Panel",
-                username = user.Username  // Sending The Username to frontend
+                username = user.Username
             });
         }
     }
 }
-
-
-/*
-  
-  check session on other endpoints
- 
- [HttpGet("dashboard")]
-public IActionResult Dashboard()
-{
-    var role = HttpContext.Session.GetString("UserRole");
-    if (string.IsNullOrEmpty(role))
-        return Unauthorized("Not logged in");
-
-    return Ok($"Welcome to {role} Dashboard");
-}
-
- */

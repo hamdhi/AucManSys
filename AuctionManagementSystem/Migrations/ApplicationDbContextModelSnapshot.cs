@@ -328,7 +328,8 @@ namespace AuctionManagementSystem.Migrations
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -351,9 +352,29 @@ namespace AuctionManagementSystem.Migrations
                             CreatedAt = new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@example.com",
                             IsActive = true,
-                            PasswordHash = "admin",
+                            PasswordHash = "$2a$12$JAqHJvucSzrKae/dNlwdEOdZTMp25cU1vM44EVTFyEVzawknBeeb2",
                             Role = "Admin",
                             Username = "admin"
+                        },
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            CreatedAt = new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "seller@example.com",
+                            IsActive = true,
+                            PasswordHash = "$2a$12$5.y8Oqufam1aHHF.M3xro.LQ9zLrAVWGwUrHWDIZrr2s4SnuchNJm",
+                            Role = "Seller",
+                            Username = "seller"
+                        },
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-000000000003"),
+                            CreatedAt = new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "bidder@example.com",
+                            IsActive = true,
+                            PasswordHash = "$2a$12$EZ7ueJR1feYJWSGEPe37tOkki/e43/P2.xAd4rMcSwZQldBIwZzAS",
+                            Role = "Bidder",
+                            Username = "bidder"
                         });
                 });
 
