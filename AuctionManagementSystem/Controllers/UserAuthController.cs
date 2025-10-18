@@ -3,6 +3,8 @@ using AuctionManagementSystem.Models;
 using AuctionManagementSystem.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
+
 
 namespace AuctionManagementSystem.Controllers
 {
@@ -44,12 +46,13 @@ namespace AuctionManagementSystem.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddUser([FromBody] AddUserAuthDto dto)
         {
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.PasswordHash);
             var user = new UserAuth
             {
                 UserId = Guid.NewGuid(),
                 Username = dto.Username,
                 Email = dto.Email,
-                PasswordHash = dto.PasswordHash,
+                PasswordHash = hashedPassword,
                 Role = dto.Role,
                 IsActive = dto.IsActive,
                 CreatedAt = DateTime.Now
@@ -73,7 +76,7 @@ namespace AuctionManagementSystem.Controllers
 
             // Update password only if provided
             if (!string.IsNullOrWhiteSpace(dto.PasswordHash))
-                user.PasswordHash = dto.PasswordHash;
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.PasswordHash);
 
             await _db.SaveChangesAsync();
             return Ok(user);
