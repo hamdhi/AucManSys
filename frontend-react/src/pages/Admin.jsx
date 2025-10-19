@@ -1,18 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import DashboardMetrics from "../components/DashboardMetrics";
 
 function Admin() {
   const username = sessionStorage.getItem("username");
   const role = sessionStorage.getItem("userRole");
-  const apiBase = "https://localhost:7212/api/Report";
   const navigate = useNavigate();
+
+  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [bids, setBids] = useState([]);
 
   useEffect(() => {
     if (role !== "Admin") {
       alert("Access denied! Redirecting to login.");
       navigate("/login");
+    } else {
+      const fetchData = async () => {
+        try {
+          const [usersRes, productsRes, bidsRes] = await Promise.all([
+            fetch("https://localhost:7212/api/UserAuth/getAll"),
+            fetch("https://localhost:7212/api/Product/getAll"),
+            fetch("https://localhost:7212/api/Bids/getAll"),
+          ]);
+          const usersData = await usersRes.json();
+          const productsData = await productsRes.json();
+          const bidsData = await bidsRes.json();
+
+          setUsers(usersData);
+          setProducts(productsData);
+          setBids(bidsData);
+        } catch (err) {
+          console.error("Error fetching data:", err);
+        }
+      };
+      fetchData();
     }
   }, [navigate, role]);
 
@@ -41,7 +65,7 @@ function Admin() {
     }
 
     try {
-      const res = await fetch(`${apiBase}/monthly/${year}/${month}`);
+      const res = await fetch(`https://localhost:7212/api/Report/monthly/${year}/${month}`);
       if (!res.ok) {
         alert("Error fetching report. Please check the year and month.");
         return;
@@ -54,20 +78,14 @@ function Admin() {
     }
   };
 
-  // Common class strings for consistent styling
   const primaryButtonClasses = "w-full rounded-lg bg-indigo-600 py-3 px-5 text-base font-semibold text-white shadow-lg transition-transform duration-300 ease-in-out hover:bg-indigo-700 hover:-translate-y-1 active:scale-95";
   const inputClasses = "w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-base transition duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500";
 
   return (
     <>
       <Header />
-      {/* Full-page container with a subtle background color */}
       <div className="flex min-h-screen w-full items-center justify-center bg-gray-100 p-4 font-sans">
-        
-        {/* Main card with modern styling */}
-        <div className="w-full max-w-2xl space-y-8 rounded-2xl bg-white p-8 text-center shadow-2xl md:p-12">
-          
-          {/* Header Section */}
+        <div className="w-full max-w-4xl space-y-8 rounded-2xl bg-white p-8 text-center shadow-2xl md:p-12">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Admin Panel</h1>
             <h2 className="mt-2 text-xl text-gray-500">
@@ -75,22 +93,26 @@ function Admin() {
             </h2>
           </div>
 
-          {/* Navigation Buttons */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <button onClick={() => navigate("/productList")} className={primaryButtonClasses}>
-              View Products
-            </button>
-            <button onClick={() => navigate("/userList")} className={primaryButtonClasses}>
-              View Users
-            </button>
-            {role === "Admin" && (
-              <button onClick={() => navigate("/paymentInfo")} className={primaryButtonClasses}>
-                View Payments
+          <div className="border-t border-gray-200 pt-8">
+            <h3 className="mb-4 text-lg font-semibold text-gray-700">Management</h3>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <button onClick={() => navigate("/productList")} className={primaryButtonClasses}>
+                View Products
               </button>
-            )}
+              <button onClick={() => navigate("/userList")} className={primaryButtonClasses}>
+                View Users
+              </button>
+              {role === "Admin" && (
+                <button onClick={() => navigate("/paymentInfo")} className={primaryButtonClasses}>
+                  View Payments
+                </button>
+              )}
+            </div>
           </div>
 
-          {/* Report Section */}
+ <DashboardMetrics users={users} products={products} bids={bids} />
+
+ 
           <div className="border-t border-gray-200 pt-8">
             <h3 className="mb-4 text-lg font-semibold text-gray-700">Generate Monthly Report</h3>
             <div className="flex flex-col gap-4 sm:flex-row">
@@ -102,7 +124,6 @@ function Admin() {
             </button>
           </div>
 
-          {/* Logout Button */}
           <div className="border-t border-gray-200 pt-8">
             <button
               onClick={logout}
@@ -111,7 +132,6 @@ function Admin() {
               Logout
             </button>
           </div>
-
         </div>
       </div>
       <Footer />
