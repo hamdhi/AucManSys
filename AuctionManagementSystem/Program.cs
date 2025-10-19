@@ -5,10 +5,8 @@ using QuestPDF.Infrastructure;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics;
 
-//only for production
 
 //var url = "http://localhost:7212";
-//Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Register Swagger services (correct way)
+// Register Swagger services
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuctionManagementSystem API", Version = "v1" });
@@ -26,7 +24,6 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHostedService<AutoBidService>();
 // Set QuestPDF license
 QuestPDF.Settings.License = LicenseType.Community;  // ✅ here
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 // Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -50,7 +47,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
     options.Cookie.SameSite = SameSiteMode.None; // ✅ required for cross-origin
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // ✅ since you're using https
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // ✅ since  using https
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
