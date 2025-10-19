@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 function UpdateUser() {
-  // --- State and Hooks (Unchanged) ---
+  // --- State and Hooks---
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -18,7 +18,7 @@ function UpdateUser() {
   const loggedInUsername = sessionStorage.getItem("username") ?? "Unknown";
   const userRole = sessionStorage.getItem("userRole");
 
-  // --- Logic for Security and Data Handling (Unchanged) ---
+  // --- Logic for Security and Data Handling ---
   useEffect(() => {
     if (userRole !== "Admin") {
       alert("Access denied! Redirecting to login.");

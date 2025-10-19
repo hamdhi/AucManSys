@@ -2,13 +2,13 @@
 using AuctionManagementSystem.Data;
 using AuctionManagementSystem.Models;
 using AuctionManagementSystem.Models.Entities;
-using Microsoft.AspNetCore.Hosting; // ADDED: For IWebHostEnvironment
+using Microsoft.AspNetCore.Hosting; 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
-using System.IO; // ADDED: For file operations
+using System.IO; 
 using System.Linq;
 using System.Security.Cryptography;
 
@@ -21,10 +21,9 @@ namespace AuctionManagementSystem.Controllers
         private readonly ApplicationDbContext dbContext;
         private readonly IWebHostEnvironment _env;
 
-        // The constructor now asks for ApplicationDbContext directly
         public ProductController(ApplicationDbContext _dbContext, IWebHostEnvironment env)
         {
-            dbContext = _dbContext; // The instance is provided by dependency injection
+            dbContext = _dbContext; 
             _env = env;
         }
 
@@ -36,7 +35,7 @@ namespace AuctionManagementSystem.Controllers
                 .Select(p => new
                 {
                     p.Product_Id,
-                    CategoryName = p.Category.Cat_Name, // include name
+                    CategoryName = p.Category.Cat_Name, 
                     p.Product_Name,
                     p.Description,
                     p.Min_Bid_Price,
@@ -64,7 +63,6 @@ namespace AuctionManagementSystem.Controllers
         }
 
         // POST: api/Product/add
-        // CHANGED: Better error handling and date parsing
         [HttpPost("add")]
         public IActionResult AddProduct([FromForm] AddProductDto dto)
         {
@@ -204,7 +202,7 @@ namespace AuctionManagementSystem.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Log error but continue with deletion
+                    
                     Console.WriteLine($"Error deleting photo: {ex.Message}");
                 }
             }

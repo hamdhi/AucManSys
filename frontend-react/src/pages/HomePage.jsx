@@ -13,7 +13,7 @@ const HomePage = () => {
   const username = sessionStorage.getItem("username");
   const userRole = sessionStorage.getItem("userRole");
 
-  // --- Data Fetching Logic (Unchanged) ---
+  // --- Data Fetching Logic ---
   const loadProducts = async () => {
     try {
       const res = await fetch("https://localhost:7212/api/Product/getAll");
@@ -74,7 +74,7 @@ const HomePage = () => {
               Discover unique items and place your bids in our live auctions. Your next treasure awaits.
             </p>
             
-            {/* ADDED: Welcome message and Logout button for logged-in users */}
+            {/*Welcome message and Logout button for logged-in users */}
             {username && (userRole === "Admin" || userRole === "Bidder" || userRole === "Seller") && (
                 <div className="mt-8 flex items-center justify-center gap-x-4 rounded-xl border border-gray-200 bg-white p-4 max-w-lg mx-auto shadow-sm">
                     <p className="text-md text-gray-800">

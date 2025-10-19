@@ -28,7 +28,7 @@ namespace AuctionManagementSystem.Controllers
             var product = await _db.Products.FindAsync(dto.ProductId);
             if (product == null) return NotFound("Product not found");
 
-            // ✅ Get logged-in user from session
+            // Get logged-in user from session
             var userIdStr = HttpContext.Session.GetString("UserId");
             if (string.IsNullOrEmpty(userIdStr))
                 return Unauthorized("User not logged in");
@@ -37,7 +37,7 @@ namespace AuctionManagementSystem.Controllers
             var user = await _db.userAuths.FindAsync(userId);
             if (user == null) return NotFound("User not found");
 
-            // ✅ Check bid amount client/server side
+            // Check bid amount client/server side
             if (dto.BidAmount <= product.Min_Bid_Price)
                 return BadRequest("Bid must be higher than current minimum bid");
 
@@ -74,7 +74,7 @@ namespace AuctionManagementSystem.Controllers
         {
             var bids = await _db.Bids
                 .Include(b => b.UserAuth)  // include user info
-                .Include(b => b.Product)  // ✅ include Product too
+                .Include(b => b.Product)  // include Product too
                 .Where(b => b.ProductId == productId)
                 .OrderByDescending(b => b.BidAmount)
                 .ToListAsync();
@@ -94,7 +94,7 @@ namespace AuctionManagementSystem.Controllers
         }
 
 
-        // ✅ GET all bids
+        // GET all bids
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAllBids()
         {

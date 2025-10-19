@@ -1,9 +1,8 @@
 import React from "react";
-import Header from "../components/Header"; // Adjust the import path as needed
-import Footer from "../components/Footer"; // Adjust the import path as needed
+import Header from "../components/Header"; 
+import Footer from "../components/Footer"; 
 import { useNavigate } from "react-router-dom";
 
-// You can replace these with your actual team members' data
 const teamMembers = [
   {
     name: "Alex Johnson",
@@ -50,7 +49,7 @@ const navigate = useNavigate();
           <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" // Replace with a relevant image
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" 
                 alt="Our team working together"
                 className="rounded-xl shadow-2xl w-full h-full object-cover"
               />

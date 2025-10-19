@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// The "./Bidder.css" import is no longer needed
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
