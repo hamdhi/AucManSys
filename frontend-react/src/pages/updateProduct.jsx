@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 function UpdateProduct() {
-  // --- State and Hooks (Largely Unchanged) ---
+  // --- State and Hooks  ---
   const [catId, setCatId] = useState("");
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
@@ -91,7 +91,7 @@ function UpdateProduct() {
   };
   
   // --- Reusable Tailwind Class Strings ---
-  // MODIFIED: Added 'border' and changed background to 'bg-white' for better contrast
+  //Added 'border' and changed background to 'bg-white' for better contrast
   const inputClasses = "block w-full rounded-lg border border-gray-300 bg-white py-2.5 px-4 text-gray-900 shadow-sm transition duration-300 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6";
   const labelClasses = "block text-sm font-medium leading-6 text-gray-700";
 

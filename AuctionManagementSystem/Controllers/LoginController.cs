@@ -21,7 +21,7 @@ namespace AuctionManagementSystem.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginDto loginDto)
         {
-            // FIXED: Only check username first, NOT password
+            // Only check username first, NOT password
             var user = dbContext.userAuths
                 .FirstOrDefault(u => u.Username == loginDto.Username);
 
@@ -31,7 +31,7 @@ namespace AuctionManagementSystem.Controllers
             if (!user.IsActive)
                 return Forbid("User account is inactive");
 
-            // FIXED: Now BCrypt verification actually runs
+            // BCrypt verification
             bool isPasswordValid = BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash);
 
             if (!isPasswordValid)

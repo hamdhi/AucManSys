@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "../components/Header"; // Adjust the import path as needed
-import Footer from "../components/Footer"; // Adjust the import path as needed
+import Header from "../components/Header"; 
+import Footer from "../components/Footer"; 
 
 const ContactUs = () => {
   // State to manage form inputs
@@ -23,15 +23,11 @@ const ContactUs = () => {
     e.preventDefault();
     setStatus("sending");
 
-    // Here you would typically send the form data to your backend API
-    // For this example, we'll simulate a successful submission after 2 seconds
     console.log("Form Data Submitted:", formData);
 
     setTimeout(() => {
       setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" }); // Reset form
-      
-      // Optionally, reset the status message after a few more seconds
+      setFormData({ name: "", email: "", subject: "", message: "" }); 
       setTimeout(() => setStatus(""), 5000);
     }, 2000);
   };

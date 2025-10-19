@@ -264,7 +264,7 @@ function ViewProduct() {
                       Buy Now for ${highestBid.bidAmount.toLocaleString()}
                     </button>
                   )}
-                  {/* MODIFIED: Edit button is now only rendered if user is an Admin or the product owner */}
+                  {/*Edit button is now only rendered if user is an Admin or the product owner */}
                   {(userRole === 'Admin' || isOwner) && (
                     <div className="mt-6 pt-6 border-t">
                       <button 

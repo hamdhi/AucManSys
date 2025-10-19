@@ -210,7 +210,7 @@ const ProductList = () => {
                       <p className="mt-2 text-xs text-gray-400">Auction ends: {new Date(p.end_Date).toLocaleDateString()}</p>
                     </div>
                     <div className="grid grid-cols-2 gap-2 p-4 pt-0">
-                      {/* MODIFIED: Buttons are now only rendered if user has permission */}
+                      {/*Buttons only rendered if user has permission */}
                       {(role === 'Admin' || username === p.username) && (
                         <>
                           <button onClick={() => navigate(`/updateProduct?id=${p.product_Id}`)} className={`${buttonBaseClasses} w-full text-center bg-yellow-500 hover:bg-yellow-600`}>Edit</button>

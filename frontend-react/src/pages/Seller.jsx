@@ -8,7 +8,7 @@ function Seller() {
   const role = sessionStorage.getItem("userRole");
   const navigate = useNavigate();
 
-  // --- Logic and Event Handlers (Unchanged) ---
+  // --- Logic and Event Handlers ---
   useEffect(() => {
     if (role !== "Seller") {
       alert("Access denied! Redirecting to login.");
