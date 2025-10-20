@@ -100,25 +100,26 @@ namespace AuctionManagementSystem.Data
 
             // ---------------- Default Products ----------------
             DateTime staticEndDate = new DateTime(2025, 12, 10);
+            DateTime staticStartDate = new DateTime(2025, 10, 20);
             string defaultPhotoPath = "/images/default.png"; // Path to the default image in wwwroot/images folder
                                                              // ---------------- Product ----------------
             modelBuilder.Entity<Product>().HasData(
                 // Electronics Products
-                new Product { Product_Id = 1, Cat_Id = 1, Product_Name = "Smartphone", Description = "Latest model smartphone", Min_Bid_Price = 300.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/smartphone.webp", Username = "admin" },
-                new Product { Product_Id = 2, Cat_Id = 1, Product_Name = "Laptop", Description = "High performance laptop", Min_Bid_Price = 800.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/laptop.jpg", Username = "admin" },
+                new Product { Product_Id = 1, Cat_Id = 1, Product_Name = "Smartphone", Description = "Latest model smartphone", Min_Bid_Price = 300.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/smartphone.webp", Username = "admin", Start_Date = staticStartDate },
+                new Product { Product_Id = 2, Cat_Id = 1, Product_Name = "Laptop", Description = "High performance laptop", Min_Bid_Price = 800.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/laptop.jpg", Username = "admin", Start_Date = staticStartDate },
                
                 // Fashion Products
-                new Product { Product_Id = 6, Cat_Id = 2, Product_Name = "T-shirt", Description = "Comfortable cotton T-shirt", Min_Bid_Price = 20.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/tshirt.webp", Username = "admin" },
-                new Product { Product_Id = 7, Cat_Id = 2, Product_Name = "Jeans", Description = "Stylish blue jeans", Min_Bid_Price = 40.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/jeans.webp", Username = "admin" },
+                new Product { Product_Id = 6, Cat_Id = 2, Product_Name = "T-shirt", Description = "Comfortable cotton T-shirt", Min_Bid_Price = 20.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/tshirt.webp", Username = "admin", Start_Date = staticStartDate },
+                new Product { Product_Id = 7, Cat_Id = 2, Product_Name = "Jeans", Description = "Stylish blue jeans", Min_Bid_Price = 40.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/jeans.webp", Username = "admin", Start_Date = staticStartDate },
                
 
                 // Home and Furniture Products
-                new Product { Product_Id = 11, Cat_Id = 3, Product_Name = "Sofa", Description = "Comfortable 3-seater sofa", Min_Bid_Price = 300.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/sofa.webp", Username = "admin" },
-                new Product { Product_Id = 12, Cat_Id = 3, Product_Name = "Dining Table", Description = "Wooden dining table", Min_Bid_Price = 250.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/diningtable.webp", Username = "admin" },
+                new Product { Product_Id = 11, Cat_Id = 3, Product_Name = "Sofa", Description = "Comfortable 3-seater sofa", Min_Bid_Price = 300.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/sofa.webp", Username = "admin", Start_Date = staticStartDate },
+                new Product { Product_Id = 12, Cat_Id = 3, Product_Name = "Dining Table", Description = "Wooden dining table", Min_Bid_Price = 250.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/diningtable.webp", Username = "admin", Start_Date = staticStartDate },
 
                 // DC Character Toys (Category 1: Electronics - Subcategory)
-                new Product { Product_Id = 16, Cat_Id = 1, Product_Name = "Batman Action Figure", Description = "Action figure of Batman", Min_Bid_Price = 25.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/batman.jpg", Username = "admin" },
-                new Product { Product_Id = 17, Cat_Id = 1, Product_Name = "Superman Action Figure", Description = "Action figure of Superman", Min_Bid_Price = 25.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/superman.webp", Username = "admin" }
+                new Product { Product_Id = 16, Cat_Id = 1, Product_Name = "Batman Action Figure", Description = "Action figure of Batman", Min_Bid_Price = 25.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/batman.jpg", Username = "admin", Start_Date = staticStartDate },
+                new Product { Product_Id = 17, Cat_Id = 1, Product_Name = "Superman Action Figure", Description = "Action figure of Superman", Min_Bid_Price = 25.00m, Status = 1, End_Date = staticEndDate, Photo = "/images/superman.webp", Username = "admin", Start_Date = staticStartDate }
             );
 
             // ---------------- Payment ----------------
