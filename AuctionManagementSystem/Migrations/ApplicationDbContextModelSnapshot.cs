@@ -207,7 +207,7 @@ namespace AuctionManagementSystem.Migrations
                             Min_Bid_Price = 300.00m,
                             Photo = "/images/smartphone.webp",
                             Product_Name = "Smartphone",
-                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Start_Date = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Username = "admin"
                         },
@@ -220,7 +220,7 @@ namespace AuctionManagementSystem.Migrations
                             Min_Bid_Price = 800.00m,
                             Photo = "/images/laptop.jpg",
                             Product_Name = "Laptop",
-                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Start_Date = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Username = "admin"
                         },
@@ -233,7 +233,7 @@ namespace AuctionManagementSystem.Migrations
                             Min_Bid_Price = 20.00m,
                             Photo = "/images/tshirt.webp",
                             Product_Name = "T-shirt",
-                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Start_Date = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Username = "admin"
                         },
@@ -246,7 +246,7 @@ namespace AuctionManagementSystem.Migrations
                             Min_Bid_Price = 40.00m,
                             Photo = "/images/jeans.webp",
                             Product_Name = "Jeans",
-                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Start_Date = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Username = "admin"
                         },
@@ -259,7 +259,7 @@ namespace AuctionManagementSystem.Migrations
                             Min_Bid_Price = 300.00m,
                             Photo = "/images/sofa.webp",
                             Product_Name = "Sofa",
-                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Start_Date = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Username = "admin"
                         },
@@ -272,7 +272,7 @@ namespace AuctionManagementSystem.Migrations
                             Min_Bid_Price = 250.00m,
                             Photo = "/images/diningtable.webp",
                             Product_Name = "Dining Table",
-                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Start_Date = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Username = "admin"
                         },
@@ -285,7 +285,7 @@ namespace AuctionManagementSystem.Migrations
                             Min_Bid_Price = 25.00m,
                             Photo = "/images/batman.jpg",
                             Product_Name = "Batman Action Figure",
-                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Start_Date = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Username = "admin"
                         },
@@ -298,7 +298,7 @@ namespace AuctionManagementSystem.Migrations
                             Min_Bid_Price = 25.00m,
                             Photo = "/images/superman.webp",
                             Product_Name = "Superman Action Figure",
-                            Start_Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Start_Date = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Username = "admin"
                         });
